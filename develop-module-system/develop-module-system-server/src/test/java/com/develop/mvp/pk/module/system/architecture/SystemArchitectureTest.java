@@ -40,7 +40,7 @@ class SystemArchitectureTest {
     @Test
     void migratedSystemSubdomainsShouldExposeStandardDddSkeleton() {
         Path sourceRoot = mainSourceRoot();
-        List<String> migratedSubdomains = List.of("auth", "dept", "dict", "logger", "mail", "member", "notice", "notify", "oauth2", "permission", "sms", "social", "tenant", "user");
+        List<String> migratedSubdomains = List.of("auth", "dept", "dict", "logger", "mail", "member", "module", "notice", "notify", "oauth2", "permission", "sms", "social", "tenant", "user");
         List<String> requiredSuffixes = List.of(
                 "domain/%s/model",
                 "domain/%s/valueobject",
@@ -80,6 +80,7 @@ class SystemArchitectureTest {
         assertImplementsInboundPort("logger", "LoggerUseCase", "LoggerApplicationService");
         assertImplementsInboundPort("mail", "MailUseCase", "MailApplicationService");
         assertImplementsInboundPort("member", "MemberUseCase", "MemberApplicationService");
+        assertImplementsInboundPort("module", "SystemModuleUseCase", "SystemModuleApplicationService");
         assertImplementsInboundPort("notice", "NoticeUseCase", "NoticeApplicationService");
         assertImplementsInboundPort("notify", "NotifyUseCase", "NotifyApplicationService");
         assertImplementsInboundPort("oauth2", "OAuth2UseCase", "OAuth2ApplicationService");
