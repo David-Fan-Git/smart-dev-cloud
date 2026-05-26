@@ -274,6 +274,16 @@ develop-module-infra-server/src/main/java/com/develop/mvp/pk/module/infra/
 - `controller`、`job`、`websocket` 只作为入口层，不承载复杂业务规则。
 - `dal` 只负责数据访问，规则判断应位于应用层或领域层。
 
+### 源码职责注释策略
+
+职责注释用于说明包、层或边界的“为什么存在”和“不能做什么”，不用于复述类名、方法名或字段名。
+
+- 优先在 README、模块根包和关键分层包的 `package-info.java` 说明职责边界。
+- `application`、`domain`、`infrastructure`、`dal`、`service` 等迁移边界清晰的包应保留职责说明。
+- DTO、VO、DO、Mapper、Convert、普通枚举和简单请求响应对象不做机械注释。
+- 当代码职责已经由类名、方法名和分层位置清楚表达时，不额外添加注释。
+- 新增注释必须说明维护边界、依赖方向或迁移约束，避免写成实现步骤说明。
+
 ## 14. 构建与验证
 
 在仓库根目录执行以下命令验证 infra 聚合模块或指定子模块：
