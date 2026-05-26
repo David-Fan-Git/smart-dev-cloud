@@ -9,6 +9,15 @@ import com.develop.mvp.pk.framework.common.exception.ErrorCode;
  */
 public interface ErrorCodeConstants {
 
+    // ========== 系统模块 1-002-030-000 ==========
+    ErrorCode SYSTEM_MODULE_NOT_EXISTS = new ErrorCode(1_002_030_000, "系统模块不存在");
+    ErrorCode SYSTEM_MODULE_CODE_DUPLICATE = new ErrorCode(1_002_030_001, "系统模块编码({})已存在");
+    ErrorCode SYSTEM_MODULE_DEPENDENCY_MISSING = new ErrorCode(1_002_030_002, "系统模块({})依赖的模块({})不存在");
+    ErrorCode SYSTEM_MODULE_DEPENDENCY_CYCLE = new ErrorCode(1_002_030_003, "系统模块依赖存在循环：{}");
+    ErrorCode SYSTEM_MODULE_STATE_INVALID = new ErrorCode(1_002_030_004, "系统模块({})当前状态({})不允许迁移到({})");
+    ErrorCode SYSTEM_MODULE_DISABLED = new ErrorCode(1_002_030_005, "系统模块({})已禁用，不能启动");
+    ErrorCode SYSTEM_MODULE_START_FAILED = new ErrorCode(1_002_030_006, "系统模块({})启动失败：{}");
+
     // ========== AUTH 模块 1-002-000-000 ==========
     ErrorCode AUTH_LOGIN_BAD_CREDENTIALS = new ErrorCode(1_002_000_000, "登录失败，账号密码不正确");
     ErrorCode AUTH_LOGIN_USER_DISABLED = new ErrorCode(1_002_000_001, "登录失败，账号被禁用");
