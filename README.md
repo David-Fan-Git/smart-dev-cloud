@@ -103,7 +103,7 @@ docs/                          # 架构与工程文档
 | 模块 | 说明 | 默认启用 |
 |---|---|---|
 | `develop-module-system` | 系统管理、用户、角色、菜单、租户、认证授权、字典、日志等 | 是 |
-| `develop-module-infra` | 文件、代码生成、配置、API 日志、定时任务、WebSocket 等 | 是 |
+| `develop-module-infra` | 文件、配置、数据源、API 日志、定时任务、WebSocket 等 | 是 |
 | `develop-module-member` | 会员用户、等级、积分、签到、地址、标签、分组等 | 否 |
 | `develop-module-bpm` | Flowable 工作流、模型、流程、任务、表单、OA 请假等 | 否 |
 | `develop-module-pay` | 支付应用、渠道、订单、退款、回调、钱包等 | 否 |
@@ -168,7 +168,7 @@ docs/                          # 架构与工程文档
 | 模块 | 依赖的业务 API | 主要 Starter / 基础组件 | 专用外部组件 |
 |---|---|---|---|
 | `system-server` | `system-api`、`infra-api` | env、tenant、data-permission、biz-ip、security、mybatis、redis、rpc、job、mq、excel、monitor | Mail、JustAuth、WxJava MP/MiniApp、Captcha |
-| `infra-server` | `infra-api` | env、tenant、security、websocket、mybatis、redis、rpc、job、mq、excel、monitor | 文件存储、代码生成、WebSocket |
+| `infra-server` | `infra-api` | env、tenant、security、websocket、mybatis、redis、rpc、job、mq、excel、monitor | 文件存储、数据源管理、WebSocket |
 | `member-server` | `member-api`、`system-api`、`infra-api` | env、tenant、security、validation、mybatis、redis、rpc、mq、excel、biz-ip、monitor | 会员积分、签到、标签等业务能力 |
 | `bpm-server` | `bpm-api`、`system-api` | env、data-permission、tenant、security、mybatis、redis、rpc、excel、monitor | Flowable Process、Flowable Actuator |
 | `pay-server` | `pay-api`、`system-api` | env、tenant、security、mybatis、redis、rpc、job、excel、monitor | 支付渠道 SDK、支付/退款同步任务 |

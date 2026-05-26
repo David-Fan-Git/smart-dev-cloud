@@ -2,9 +2,9 @@
 
 ## 1. 模块定位
 
-`develop-module-infra` 是 Smart Cloud 的基础设施与研发工具模块，Maven packaging 为 `pom`，通过 `api + server` 两个子模块对外提供平台级通用能力。
+`develop-module-infra` 是 Smart Cloud 的基础设施模块，Maven packaging 为 `pom`，通过 `api + server` 两个子模块对外提供平台级通用能力。
 
-它承担两类职责：一类是配置、文件、数据源、API 日志、Redis、WebSocket、定时清理等基础设施运维能力；另一类是代码生成、Demo 示例等研发效率支撑能力。该模块应服务于 system 和其它业务模块，但不应承载用户、订单、支付、工作流等具体业务规则。
+它承担配置、文件、数据源、API 日志、Redis、WebSocket、定时清理等基础设施运维能力。该模块应服务于 system 和其它业务模块，但不应承载用户、订单、支付、工作流等具体业务规则。
 
 | 子模块 | Packaging | 职责边界 |
 |---|---:|---|
@@ -46,15 +46,15 @@
 | Maven Artifact | `develop-module-infra` |
 | Packaging | `pom` |
 | 子模块 | `develop-module-infra-api`、`develop-module-infra-server` |
-| Java 源文件总数 | 271 |
-| API 子模块 Java 文件数 | 12 |
-| Server 子模块 Java 文件数 | 259 |
-| Controller 数量 | 13 |
+| Java 源文件总数 | 233 |
+| API 子模块 Java 文件数 | 15 |
+| Server 子模块 Java 文件数 | 218 |
+| Controller 数量 | 8 |
 | ApplicationService 数量 | 6 |
 | 领域上下文数量 | 5 |
-| 领域仓储接口数量 | 6 |
-| 基础设施仓储实现数量 | 6 |
-| MyBatis Mapper 数量 | 18 |
+| 领域仓储接口数量 | 11 |
+| 基础设施仓储实现数量 | 10 |
+| MyBatis Mapper 数量 | 7 |
 | Job 类数量 | 3 |
 | MQ 目录 Java 文件数 | 3 |
 
@@ -68,12 +68,12 @@
 
 | 层级 / 目录 | 职责 | 说明 |
 |---|---|---|
-| `controller` | HTTP 入站适配 | 管理端配置、数据源、文件、日志、Redis、研发 Demo，以及 App 文件上传入口。 |
+| `controller` | HTTP 入站适配 | 管理端配置、数据源、文件、日志、Redis，以及 App 文件上传入口。 |
 | `application` | 用例编排 | 配置、数据源、文件、文件配置、访问日志、错误日志等 ApplicationService。 |
 | `domain` | 领域层 | 按 config、db、file、logger、event 等上下文组织仓储接口、事件和值对象。 |
 | `infrastructure` | 基础设施适配 | persistence、cache、rpc、messaging、external 等技术适配。 |
 | `framework` | 模块技术扩展 | 文件客户端、监控、RPC、安全等 infra 专属框架配置与扩展。 |
-| `dal` | 数据访问 | 包含 DO、MyBatis Mapper，覆盖配置、数据源、文件、日志、Demo 表等。 |
+| `dal` | 数据访问 | 包含 DO、MyBatis Mapper，覆盖配置、数据源、文件、日志等。 |
 | `convert` | 对象转换 | 配置、文件、Redis 等 VO / DTO / DO 转换。 |
 | `api` | 模块内 API 实现适配 | server 对 infra-api 契约的本地实现或适配入口。 |
 | `websocket` | WebSocket 消息 | WebSocket 消息体和推送能力相关结构。 |
@@ -83,7 +83,7 @@
 
 ## 6. 业务能力边界
 
-infra 模块的核心理念是“让调用方用得舒服，但不替调用方写业务逻辑”。infra 负责把配置、文件、WebSocket、日志、Redis、数据源、代码生成等能力封装成稳定服务；调用方负责决定业务规则、业务校验、业务流程和业务语义。
+infra 模块的核心理念是“让调用方用得舒服，但不替调用方写业务逻辑”。infra 负责把配置、文件、WebSocket、日志、Redis、数据源等能力封装成稳定服务；调用方负责决定业务规则、业务校验、业务流程和业务语义。
 
 | 设计原则 | 含义 | 对调用方的影响 |
 |---|---|---|
@@ -98,12 +98,11 @@ infra 模块的核心理念是“让调用方用得舒服，但不替调用方�
 |---|---|---|
 | `config` | 系统配置管理，向其它模块提供 `ConfigApi` 查询配置值。 | 调用方根据配置值执行业务规则，infra 不替调用方决策业务行为。 |
 | `file` | 文件配置、文件上传、文件元数据、文件客户端适配。 | 统一处理存储差异，业务模块不应直接依赖具体存储客户端。 |
-| `db` | 数据源配置管理，支撑代码生成和数据库工具能力。 | 面向研发与管理工具，不承载业务数据建模规则。 |
+| `db` | 数据源配置管理。 | 面向基础设施运维，不承载业务数据建模规则。 |
 | `logger` | API 访问日志、API 错误日志查询、处理和清理。 | 管理日志生命周期，不替业务模块定义业务审计规则。 |
 | `event` | infra 领域事件目录。 | 用于 infra 内部领域事件组织。 |
 | `redis` | Redis 管理端入口和 Redis 信息展示。 | 面向运维管理，不应散落业务规则。 |
 | `websocket` | WebSocket 消息发送契约和消息结构。 | 对外提供推送能力，业务语义由调用方决定。 |
-| `demo` | 代码生成器示例与研发辅助 Demo。 | 属于研发辅助，不属于核心业务规则。 |
 
 ## 7. 组件调用关系图
 
@@ -121,7 +120,6 @@ infra 模块的核心理念是“让调用方用得舒服，但不替调用方�
 | `develop-spring-boot-starter-biz-tenant` | 多租户上下文与租户隔离支撑。 |
 | `develop-spring-boot-starter-websocket` | WebSocket 会话与消息推送能力。 |
 | `develop-spring-boot-starter-mybatis` | MyBatis Plus、多数据源、分页和数据访问能力。 |
-| `mybatis-plus-generator` | 解析数据库表结构，支撑代码生成器。 |
 | `develop-spring-boot-starter-redis` | Redis 缓存与 Redis 管理能力。 |
 | `develop-spring-boot-starter-rpc` | OpenFeign、负载均衡、跨模块或跨服务调用。 |
 | `spring-cloud-starter-alibaba-nacos-discovery` | Nacos 服务注册发现。 |
@@ -131,7 +129,6 @@ infra 模块的核心理念是“让调用方用得舒服，但不替调用方�
 | `develop-spring-boot-starter-excel` | 导入导出能力。 |
 | `develop-spring-boot-starter-monitor` | 链路追踪、指标和监控接入。 |
 | `develop-spring-boot-starter-test` | 测试基类、随机对象、断言与测试工具。 |
-| `velocity-engine-core` | 代码生成模板渲染。 |
 | `commons-net` | FTP 文件客户端。 |
 | `jsch` | SFTP 文件客户端。 |
 | `software.amazon.awssdk:s3` | S3 兼容文件存储客户端。 |
@@ -314,6 +311,6 @@ mvn clean package -pl develop-module-infra -am -Dmaven.test.skip=true
 - 修改文件存储能力时，必须确认不同 `FileStorageEnum` 对应客户端的行为边界，不要把渠道差异泄漏到业务模块。
 - 修改配置能力时，确认调用方是否依赖配置 key 的语义和默认值。
 - 修改日志清理任务时，确认保留周期、删除条件和运维排查需求。
-- 修改代码生成或数据源管理能力时，确认其定位仍是研发工具，不要把业务建模规则固化到 infra。
+- 修改数据源管理能力时，确认其定位仍是基础设施运维，不要把业务建模规则固化到 infra。
 - 涉及 DDD 分层、模块结构或 API 契约调整时，同步更新本文档和根目录架构文档。
 - 修改 SVG 图时优先更新 `develop-module-infra/generate_infra_readme_svgs.py` 后重新生成，避免手工改图导致脚本与图片不一致。
