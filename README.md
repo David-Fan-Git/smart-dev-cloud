@@ -366,6 +366,7 @@ convert/                       # DO、DTO、领域对象之间的转换
 - `application` 负责用例编排，不承载底层持久化细节。
 - `infrastructure` 实现领域仓储接口并适配 DAL、外部服务或中间件。
 - `service` 与 `dal` 是旧结构和迁移来源，不应作为新增核心业务逻辑的最终归宿。
+- 模块级职责说明优先放在 README 与必要的 `package-info.java`，避免给 DTO、DO、Mapper 或显而易见的方法添加噪音注释。
 - 修改聚合或模块结构前，应先阅读 `.claude/ddd-skills/` 下对应聚合技能和标准文档。
 
 ## 测试与验证
