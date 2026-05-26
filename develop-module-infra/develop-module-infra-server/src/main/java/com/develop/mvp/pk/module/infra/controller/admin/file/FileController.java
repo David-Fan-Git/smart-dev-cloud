@@ -8,10 +8,9 @@ import com.develop.mvp.pk.framework.common.pojo.PageResult;
 import com.develop.mvp.pk.framework.common.util.object.BeanUtils;
 import com.develop.mvp.pk.framework.tenant.core.aop.TenantIgnore;
 import com.develop.mvp.pk.module.infra.application.file.port.inbound.FileUseCase;
+import com.develop.mvp.pk.module.infra.application.file.result.FilePresignedUrlResult;
 import com.develop.mvp.pk.module.infra.controller.admin.file.vo.file.*;
 import com.develop.mvp.pk.module.infra.domain.file.File;
-import com.develop.mvp.pk.module.infra.framework.file.core.client.FileClient;
-import com.develop.mvp.pk.module.infra.service.file.FileConfigService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.Parameters;
@@ -45,8 +44,6 @@ public class FileController {
 
     @Resource
     private FileUseCase fileApplicationService;
-    @Resource
-    private FileConfigService fileConfigService; // 保留用于 FileClient 管理
 
     @PostMapping("/upload")
     @Operation(summary = "上传文件", description = "模式一：后端上传文件")
@@ -55,9 +52,8 @@ public class FileController {
     public CommonResult<String> uploadFile(@Valid FileUploadReqVO uploadReqVO) throws Exception {
         MultipartFile file = uploadReqVO.getFile();
         byte[] content = IoUtil.readBytes(file.getInputStream());
-        FileClient masterClient = fileConfigService.getMasterFileClient();
-        return success(fileApplicationService.uploadFile(content, file.getOriginalFilename(),
-                uploadReqVO.getDirectory(), file.getContentType(), masterClient));
+        return success(fileApplicationService.createFile(content, file.getOriginalFilename(),
+                uploadReqVO.getDirectory(), file.getContentType()));
     }
 
     @GetMapping("/presigned-url")
@@ -69,13 +65,9 @@ public class FileController {
     public CommonResult<FilePresignedUrlRespVO> getFilePresignedUrl(
             @RequestParam("name") String name,
             @RequestParam(value = "directory", required = false) String directory) {
-        // 使用 master FileClient 生成文件预签名地址
-        String path = directory != null ? directory + "/" + name : name;
-        FileClient masterClient = fileConfigService.getMasterFileClient();
-        String uploadUrl = masterClient.presignPutUrl(path);
-        String visitUrl = masterClient.presignGetUrl(path, null);
-        return success(new FilePresignedUrlRespVO().setConfigId(masterClient.getId())
-                .setPath(path).setUploadUrl(uploadUrl).setUrl(visitUrl));
+        FilePresignedUrlResult result = fileApplicationService.presignPutUrl(name, directory);
+        return success(new FilePresignedUrlRespVO().setConfigId(result.configId())
+                .setPath(result.path()).setUploadUrl(result.uploadUrl()).setUrl(result.url()));
     }
 
     @PostMapping("/create")
@@ -100,10 +92,7 @@ public class FileController {
     @Parameter(name = "id", description = "编号", required = true)
     @PreAuthorize("@ss.hasPermission('infra:file:delete')")
     public CommonResult<Boolean> deleteFile(@RequestParam("id") Long id) throws Exception {
-        File file = fileApplicationService.getFile(id);
-        FileClient fileClient = file != null && file.configId() != null
-                ? fileConfigService.getFileClient(file.configId().value()) : null;
-        fileApplicationService.deleteFile(id, fileClient);
+        fileApplicationService.deleteFile(id);
         return success(true);
     }
 
@@ -112,8 +101,7 @@ public class FileController {
     @Parameter(name = "ids", description = "编号列表", required = true)
     @PreAuthorize("@ss.hasPermission('infra:file:delete')")
     public CommonResult<Boolean> deleteFileList(@RequestParam("ids") List<Long> ids) throws Exception {
-        fileApplicationService.deleteFileList(ids, configId ->
-                configId != null ? fileConfigService.getFileClient(configId) : null);
+        fileApplicationService.deleteFileList(ids);
         return success(true);
     }
 
@@ -130,8 +118,7 @@ public class FileController {
             throw new IllegalArgumentException("结尾的 path 路径必须传递");
         }
         path = URLUtil.decode(path, StandardCharsets.UTF_8, false);
-        FileClient fileClient = fileConfigService.getFileClient(configId);
-        byte[] content = fileClient.getContent(path);
+        byte[] content = fileApplicationService.getFileContent(configId, path);
         if (content == null) {
             log.warn("[getFileContent][configId({}) path({}) 文件不存在]", configId, path);
             response.setStatus(HttpStatus.NOT_FOUND.value());

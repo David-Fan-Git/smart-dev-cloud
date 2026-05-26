@@ -5,7 +5,8 @@ import com.develop.mvp.pk.framework.common.pojo.CommonResult;
 import com.develop.mvp.pk.module.infra.controller.admin.file.vo.file.FileCreateReqVO;
 import com.develop.mvp.pk.module.infra.controller.admin.file.vo.file.FilePresignedUrlRespVO;
 import com.develop.mvp.pk.module.infra.controller.app.file.vo.AppFileUploadReqVO;
-import com.develop.mvp.pk.module.infra.service.file.FileService;
+import com.develop.mvp.pk.module.infra.application.file.port.inbound.FileUseCase;
+import com.develop.mvp.pk.module.infra.application.file.result.FilePresignedUrlResult;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.Parameters;
@@ -29,7 +30,7 @@ import static com.develop.mvp.pk.framework.common.pojo.CommonResult.success;
 public class AppFileController {
 
     @Resource
-    private FileService fileService;
+    private FileUseCase fileApplicationService;
 
     @PostMapping("/upload")
     @Operation(summary = "上传文件")
@@ -39,7 +40,7 @@ public class AppFileController {
     public CommonResult<String> uploadFile(AppFileUploadReqVO uploadReqVO) throws Exception {
         MultipartFile file = uploadReqVO.getFile();
         byte[] content = IoUtil.readBytes(file.getInputStream());
-        return success(fileService.createFile(content, file.getOriginalFilename(),
+        return success(fileApplicationService.createFile(content, file.getOriginalFilename(),
                 uploadReqVO.getDirectory(), file.getContentType()));
     }
 
@@ -52,14 +53,18 @@ public class AppFileController {
     public CommonResult<FilePresignedUrlRespVO> getFilePresignedUrl(
             @RequestParam("name") String name,
             @RequestParam(value = "directory", required = false) String directory) {
-        return success(fileService.presignPutUrl(name, directory));
+        FilePresignedUrlResult result = fileApplicationService.presignPutUrl(name, directory);
+        return success(new FilePresignedUrlRespVO().setConfigId(result.configId())
+                .setPath(result.path()).setUploadUrl(result.uploadUrl()).setUrl(result.url()));
     }
 
     @PostMapping("/create")
     @Operation(summary = "创建文件", description = "模式二：前端上传文件：配合 presigned-url 接口，记录上传了上传的文件")
     @PermitAll
     public CommonResult<Long> createFile(@Valid @RequestBody FileCreateReqVO createReqVO) {
-        return success(fileService.createFile(createReqVO));
+        return success(fileApplicationService.createFileRecord(
+                createReqVO.getConfigId(), createReqVO.getName(), createReqVO.getPath(),
+                createReqVO.getUrl(), createReqVO.getType(), createReqVO.getSize()));
     }
 
 }

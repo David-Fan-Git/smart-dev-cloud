@@ -4,26 +4,26 @@ package com.develop.mvp.pk.module.infra.application.file.service;
 
 import cn.hutool.core.date.LocalDateTimeUtil;
 import cn.hutool.core.io.FileUtil;
-import cn.hutool.core.lang.Assert;
 import cn.hutool.core.util.RandomUtil;
 import cn.hutool.core.util.StrUtil;
 import cn.hutool.crypto.digest.DigestUtil;
 import com.develop.mvp.pk.framework.common.pojo.PageResult;
-import com.develop.mvp.pk.module.infra.application.file.port.inbound.FileUseCase;
 import com.develop.mvp.pk.framework.common.util.http.HttpUtils;
-import com.develop.mvp.pk.framework.common.util.object.BeanUtils;
+import com.develop.mvp.pk.module.infra.application.file.port.inbound.FileUseCase;
+import com.develop.mvp.pk.module.infra.application.file.port.outbound.FileStoragePort;
+import com.develop.mvp.pk.module.infra.application.file.result.FilePresignedUrlResult;
 import com.develop.mvp.pk.module.infra.domain.event.DomainEventPublisher;
 import com.develop.mvp.pk.module.infra.domain.file.File;
 import com.develop.mvp.pk.module.infra.domain.file.repository.FilePageQuery;
 import com.develop.mvp.pk.module.infra.domain.file.repository.FileRepository;
 import com.develop.mvp.pk.module.infra.domain.file.valueobject.FileId;
-import com.develop.mvp.pk.module.infra.framework.file.core.client.FileClient;
 import com.develop.mvp.pk.module.infra.framework.file.core.utils.FileTypeUtils;
 import com.develop.mvp.pk.module.infra.infrastructure.file.FileFactory;
 import lombok.SneakyThrows;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 import static cn.hutool.core.date.DatePattern.PURE_DATE_PATTERN;
@@ -42,11 +42,14 @@ public class FileApplicationService implements FileUseCase {
 
     private final FileRepository fileRepository;
     private final DomainEventPublisher eventPublisher;
+    private final FileStoragePort fileStoragePort;
 
     public FileApplicationService(FileRepository fileRepository,
-                                   DomainEventPublisher eventPublisher) {
+                                  DomainEventPublisher eventPublisher,
+                                  FileStoragePort fileStoragePort) {
         this.fileRepository = fileRepository;
         this.eventPublisher = eventPublisher;
+        this.fileStoragePort = fileStoragePort;
     }
 
     // ── 命令 ──
@@ -56,8 +59,7 @@ public class FileApplicationService implements FileUseCase {
      */
     @Transactional
     @SneakyThrows
-    public String uploadFile(byte[] content, String name, String directory, String type,
-                              FileClient fileClient) {
+    public String createFile(byte[] content, String name, String directory, String type) {
         // 处理 type 和 name
         if (StrUtil.isEmpty(type)) {
             type = FileTypeUtils.getMineType(content, name);
@@ -74,20 +76,19 @@ public class FileApplicationService implements FileUseCase {
 
         // 生成 path 并上传
         String path = generateUploadPath(name, directory);
-        Assert.notNull(fileClient, "客户端(master) 不能为空");
-        String url = fileClient.upload(content, path, type);
+        FileStoragePort.UploadResult uploadResult = fileStoragePort.uploadToMaster(content, path, type);
 
         // 创建领域对象并保存
-        File file = FileFactory.create(fileClient.getId(), name, path, url, type, (long) content.length);
+        File file = FileFactory.create(uploadResult.configId(), name, path, uploadResult.url(), type, (long) content.length);
         file = fileRepository.save(file);
         file.markUploaded();
         publishEvents(file);
-        return url;
+        return uploadResult.url();
     }
 
     @Transactional
     public Long createFileRecord(Long configId, String name, String path, String url,
-                                  String type, Long size) {
+                                 String type, Long size) {
         url = HttpUtils.removeUrlQuery(url);
         File file = FileFactory.create(configId, name, path, url, type, size);
         file = fileRepository.save(file);
@@ -97,25 +98,22 @@ public class FileApplicationService implements FileUseCase {
     }
 
     @Transactional
-    public void deleteFile(Long id, FileClient fileClient) throws Exception {
+    public void deleteFile(Long id) throws Exception {
         File file = findExistingFile(FileId.of(id));
-        if (fileClient != null) {
-            fileClient.delete(file.path());
-        }
+        fileStoragePort.delete(file.configId() != null ? file.configId().value() : null, file.path());
         file.markDeleted();
         fileRepository.delete(file.id());
         publishEvents(file);
     }
 
     @Transactional
-    public void deleteFileList(List<Long> ids, java.util.function.Function<Long, FileClient> clientProvider) throws Exception {
+    public void deleteFileList(List<Long> ids) throws Exception {
         for (Long id : ids) {
             File file = findExistingFile(FileId.of(id));
-            FileClient client = clientProvider.apply(file.configId() != null ? file.configId().value() : null);
-            if (client != null) {
-                client.delete(file.path());
-            }
+            fileStoragePort.delete(file.configId() != null ? file.configId().value() : null, file.path());
+            file.markDeleted();
             fileRepository.delete(file.id());
+            publishEvents(file);
         }
     }
 
@@ -126,14 +124,23 @@ public class FileApplicationService implements FileUseCase {
     }
 
     public PageResult<File> getFilePage(String path, String type,
-                                         java.time.LocalDateTime[] createTime,
-                                         Integer pageNo, Integer pageSize) {
+                                        LocalDateTime[] createTime,
+                                        Integer pageNo, Integer pageSize) {
         return fileRepository.findPage(new FilePageQuery(path, type, createTime, pageNo, pageSize));
     }
 
-    public byte[] getFileContent(Long configId, String path,
-                                  java.util.function.BiFunction<Long, String, byte[]> contentProvider) throws Exception {
-        return contentProvider.apply(configId, path);
+    public byte[] getFileContent(Long configId, String path) throws Exception {
+        return fileStoragePort.getContent(configId, path);
+    }
+
+    public FilePresignedUrlResult presignPutUrl(String name, String directory) {
+        String path = generateUploadPath(name, directory);
+        FileStoragePort.PresignedPutResult result = fileStoragePort.presignPutFromMaster(path);
+        return new FilePresignedUrlResult(result.configId(), path, result.uploadUrl(), result.url());
+    }
+
+    public String presignGetUrl(String resourceUrl, Integer expirationSeconds) {
+        return fileStoragePort.presignGetFromMaster(resourceUrl, expirationSeconds);
     }
 
     // ── 私有方法 ──
