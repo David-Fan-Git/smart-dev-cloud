@@ -31,7 +31,7 @@
 <text x="590" y="68" text-anchor="middle" class="subtitle">基础设施模块已出现 application/domain/infrastructure 分层，同时保留 service 旧目录作为迁移来源</text>
 <rect x="80" y="105" width="1020" height="78" rx="12" class="blue"/>
 <text x="590.0" y="129" text-anchor="middle" class="box-title">入口层 controller / websocket / job</text>
-<text x="590.0" y="152" text-anchor="middle" class="box-text">管理端：配置、数据源、文件、API 日志、Redis、代码生成 Demo；App：文件上传；Job：日志清理；WebSocket：消息推送</text>
+<text x="590.0" y="152" text-anchor="middle" class="box-text">管理端：配置、数据源、文件、API 日志、Redis；App：文件上传；Job：日志清理；WebSocket：消息推送</text>
 <rect x="125" y="245" width="930" height="90" rx="12" class="green"/>
 <text x="590.0" y="269" text-anchor="middle" class="box-title">应用层 application</text>
 <text x="590.0" y="292" text-anchor="middle" class="box-text">Config / DataSourceConfig / File / FileConfig / ApiAccessLog / ApiErrorLog ApplicationService</text>

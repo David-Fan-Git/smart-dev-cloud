@@ -38,7 +38,7 @@
 <text x="440.0" y="144" text-anchor="middle" class="box-title">数据与缓存</text>
 <text x="440.0" y="167" text-anchor="middle" class="box-text">MyBatis Starter</text>
 <text x="440.0" y="184" text-anchor="middle" class="box-text">Redis Starter</text>
-<text x="440.0" y="201" text-anchor="middle" class="box-text">MyBatis Generator</text>
+<text x="440.0" y="201" text-anchor="middle" class="box-text">多数据源配置</text>
 <rect x="610" y="120" width="210" height="90" rx="12" class="purple"/>
 <text x="715.0" y="144" text-anchor="middle" class="box-title">服务治理</text>
 <text x="715.0" y="167" text-anchor="middle" class="box-text">RPC Starter</text>
@@ -56,10 +56,10 @@
 <text x="165.0" y="391" text-anchor="middle" class="box-text">AWS S3 SDK</text>
 <text x="165.0" y="408" text-anchor="middle" class="box-text">Tika 文件识别</text>
 <rect x="335" y="310" width="210" height="90" rx="12" class="yellow"/>
-<text x="440.0" y="334" text-anchor="middle" class="box-title">研发工具</text>
-<text x="440.0" y="357" text-anchor="middle" class="box-text">Velocity 模板</text>
-<text x="440.0" y="374" text-anchor="middle" class="box-text">代码生成 Demo</text>
-<text x="440.0" y="391" text-anchor="middle" class="box-text">数据源配置</text>
+<text x="440.0" y="334" text-anchor="middle" class="box-title">数据源管理</text>
+<text x="440.0" y="357" text-anchor="middle" class="box-text">数据源配置</text>
+<text x="440.0" y="374" text-anchor="middle" class="box-text">连接参数维护</text>
+<text x="440.0" y="391" text-anchor="middle" class="box-text">基础设施运维</text>
 <rect x="610" y="310" width="210" height="90" rx="12" class="yellow"/>
 <text x="715.0" y="334" text-anchor="middle" class="box-title">监控与日志</text>
 <text x="715.0" y="357" text-anchor="middle" class="box-text">Monitor Starter</text>
@@ -72,7 +72,7 @@
 <text x="990.0" y="391" text-anchor="middle" class="box-text">WebSocketSenderApi</text>
 <rect x="230" y="540" width="720" height="105" rx="12" class="white"/>
 <text x="590.0" y="564" text-anchor="middle" class="box-title">develop-module-infra-server</text>
-<text x="590.0" y="587" text-anchor="middle" class="box-text">配置管理、文件管理、数据源管理、API 日志、Redis 管理、WebSocket、研发 Demo / 代码生成支撑</text>
+<text x="590.0" y="587" text-anchor="middle" class="box-text">配置管理、文件管理、数据源管理、API 日志、Redis 管理、WebSocket</text>
 <text x="590.0" y="604" text-anchor="middle" class="box-text">为 system 和其它业务模块提供配置、文件、WebSocket 等基础能力</text>
 <path d="M165,210 L470,540" class="line"/>
 <path d="M440,210 L530,540" class="line"/>

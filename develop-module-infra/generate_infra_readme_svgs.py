@@ -58,7 +58,7 @@ def svg(name, w, h, body):
 
 svg("infra-module-architecture.svg", 1180, 760, f"""
 {t('develop-module-infra 模块运行架构', 590, 42, 'title')}
-{t('基础设施运维管理 + 研发工具：配置、文件、数据源、API 日志、代码生成、Redis、WebSocket 与任务清理', 590, 68, 'subtitle')}
+{t('基础设施运维管理：配置、文件、数据源、API 日志、Redis、WebSocket 与任务清理', 590, 68, 'subtitle')}
 {box(45, 115, 210, 115, '调用方', ['管理后台 / App', '其它业务模块', 'develop-server 容器'], 'white')}
 {box(315, 105, 240, 135, 'develop-module-infra-api', ['ConfigApi / FileApi', 'WebSocketSenderApi', 'DTO / Enum 稳定契约'], 'cyan')}
 {box(635, 95, 265, 155, 'develop-module-infra-server', ['Controller / ApplicationService', 'Domain / Infrastructure', 'DAL / Framework', 'Job / WebSocket'], 'blue')}
@@ -68,7 +68,7 @@ svg("infra-module-architecture.svg", 1180, 760, f"""
 {line(900,172,960,172,label='基础设施', ly=156)}
 {box(70, 330, 180, 105, '配置中心', ['ConfigController', 'ConfigApplicationService', 'ConfigApi'], 'green')}
 {box(290, 330, 180, 105, '文件能力', ['FileController / AppFile', 'FileClientFactory', 'DB/Local/FTP/SFTP/S3'], 'green')}
-{box(510, 330, 180, 105, '数据源管理', ['DataSourceConfig', 'MyBatis Generator', 'Velocity 模板'], 'green')}
+{box(510, 330, 180, 105, '数据源管理', ['DataSourceConfig', '数据源配置', '连接校验'], 'green')}
 {box(730, 330, 180, 105, '日志审计', ['ApiAccessLog', 'ApiErrorLog', '清理 Job'], 'green')}
 {box(950, 330, 180, 105, '运维入口', ['RedisController', 'WebSocket', 'Monitor / Security'], 'green')}
 {line(750,250,160,330,'dash')}
@@ -88,7 +88,7 @@ svg("infra-module-architecture.svg", 1180, 760, f"""
 svg("infra-layered-architecture.svg", 1180, 820, f"""
 {t('infra server 分层与六边形结构', 590, 42, 'title')}
 {t('基础设施模块已出现 application/domain/infrastructure 分层，同时保留 service 旧目录作为迁移来源', 590, 68, 'subtitle')}
-{box(80, 105, 1020, 78, '入口层 controller / websocket / job', ['管理端：配置、数据源、文件、API 日志、Redis、代码生成 Demo；App：文件上传；Job：日志清理；WebSocket：消息推送'], 'blue')}
+{box(80, 105, 1020, 78, '入口层 controller / websocket / job', ['管理端：配置、数据源、文件、API 日志、Redis；App：文件上传；Job：日志清理；WebSocket：消息推送'], 'blue')}
 {box(125, 245, 930, 90, '应用层 application', ['Config / DataSourceConfig / File / FileConfig / ApiAccessLog / ApiErrorLog ApplicationService', '负责用例编排、事务边界、查询命令对象和端口调用'], 'green')}
 {box(165, 400, 850, 105, '领域层 domain', ['config / db / file / logger / event', 'repository / valueobject / event 等领域构件目录'], 'yellow')}
 {box(90, 575, 310, 92, '基础设施层 infrastructure', ['cache / external / messaging / persistence / rpc', '实现仓储和外部适配'], 'purple')}
@@ -113,14 +113,14 @@ svg("infra-component-matrix.svg", 1180, 760, f"""
 {t('infra 模块组件调用关系', 590, 42, 'title')}
 {t('基于 develop-module-infra-server POM 与源码目录归纳的组件依赖视图', 590, 68, 'subtitle')}
 {box(60, 120, 210, 90, 'Web 与安全', ['Security Starter', 'WebSocket Starter', 'Tenant Starter'], 'blue')}
-{box(335, 120, 210, 90, '数据与缓存', ['MyBatis Starter', 'Redis Starter', 'MyBatis Generator'], 'green')}
+{box(335, 120, 210, 90, '数据与缓存', ['MyBatis Starter', 'Redis Starter', '多数据源配置'], 'green')}
 {box(610, 120, 210, 90, '服务治理', ['RPC Starter', 'Nacos Discovery', 'Nacos Config'], 'purple')}
 {box(885, 120, 210, 90, '任务与消息', ['Job Starter', 'MQ Starter', '日志清理 Job'], 'cyan')}
 {box(60, 310, 210, 90, '文件客户端', ['commons-net FTP', 'JSch SFTP', 'AWS S3 SDK', 'Tika 文件识别'], 'orange')}
-{box(335, 310, 210, 90, '研发工具', ['Velocity 模板', '代码生成 Demo', '数据源配置'], 'yellow')}
+{box(335, 310, 210, 90, '数据源管理', ['数据源配置', '连接参数维护', '基础设施运维'], 'yellow')}
 {box(610, 310, 210, 90, '监控与日志', ['Monitor Starter', 'ApiAccessLog', 'ApiErrorLog'], 'yellow')}
 {box(885, 310, 210, 90, '跨模块 API', ['ConfigApi', 'FileApi', 'WebSocketSenderApi'], 'cyan')}
-{box(230, 540, 720, 105, 'develop-module-infra-server', ['配置管理、文件管理、数据源管理、API 日志、Redis 管理、WebSocket、研发 Demo / 代码生成支撑', '为 system 和其它业务模块提供配置、文件、WebSocket 等基础能力'], 'white')}
+{box(230, 540, 720, 105, 'develop-module-infra-server', ['配置管理、文件管理、数据源管理、API 日志、Redis 管理、WebSocket', '为 system 和其它业务模块提供配置、文件、WebSocket 等基础能力'], 'white')}
 {line(165,210,470,540)}
 {line(440,210,530,540)}
 {line(715,210,600,540)}
@@ -195,12 +195,12 @@ svg("infra-log-clean-flow.svg", 1180, 760, f"""
 
 svg("infra-mind-map.svg", 1180, 820, f"""
 {t('develop-module-infra 代码思维导图', 590, 42, 'title')}
-{t('从模块结构、业务能力、文件体系、研发工具、运维能力和维护边界理解 infra 模块', 590, 68, 'subtitle')}
-{box(480, 350, 220, 90, 'develop-module-infra', ['基础设施运维管理', '研发工具支撑'], 'blue')}
+{t('从模块结构、业务能力、文件体系、运维能力和维护边界理解 infra 模块', 590, 68, 'subtitle')}
+{box(480, 350, 220, 90, 'develop-module-infra', ['基础设施运维管理', '平台通用能力支撑'], 'blue')}
 {box(90, 115, 220, 100, 'Maven 子模块', ['develop-module-infra-api', 'develop-module-infra-server', '聚合 POM 不放业务代码'], 'cyan')}
-{box(465, 100, 250, 125, '业务能力', ['配置管理 / 数据源管理', '文件配置 / 文件上传', 'API 访问日志 / 错误日志', 'Redis 管理 / WebSocket', '代码生成 Demo'], 'green')}
+{box(465, 100, 250, 125, '业务能力', ['配置管理 / 数据源管理', '文件配置 / 文件上传', 'API 访问日志 / 错误日志', 'Redis 管理 / WebSocket'], 'green')}
 {box(855, 115, 230, 100, '文件体系', ['FileClientFactory', 'DB / Local', 'FTP / SFTP / S3', 'Tika 文件类型识别'], 'yellow')}
-{box(90, 585, 230, 105, '外部组件', ['Tenant / Security / WebSocket', 'MyBatis / Redis / RPC', 'Nacos / MQ / XXL-Job', 'Velocity / Generator'], 'purple')}
+{box(90, 585, 230, 105, '外部组件', ['Tenant / Security / WebSocket', 'MyBatis / Redis / RPC', 'Nacos / MQ / XXL-Job', '文件存储组件'], 'purple')}
 {box(470, 590, 240, 95, '跨模块契约', ['ConfigApi', 'FileApi', 'WebSocketSenderApi', 'DTO / Enum'], 'orange')}
 {box(855, 585, 230, 105, '维护边界', ['infra 提供平台能力', '业务规则不上移到 infra', '旧 service 目录逐步迁移', '入口层不堆叠核心逻辑'], 'red')}
 {line(480,365,310,165)}
