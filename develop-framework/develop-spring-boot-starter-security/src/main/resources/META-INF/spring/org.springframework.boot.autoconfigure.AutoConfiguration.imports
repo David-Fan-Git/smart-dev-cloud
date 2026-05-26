@@ -1,0 +1,5 @@
+com.develop.mvp.pk.framework.security.config.DevelopSecurityRpcAutoConfiguration
+com.develop.mvp.pk.framework.security.config.DevelopSecurityAutoConfiguration
+com.develop.mvp.pk.framework.security.config.DevelopWebSecurityConfigurerAdapter
+com.develop.mvp.pk.framework.operatelog.config.DevelopOperateLogConfiguration
+com.develop.mvp.pk.framework.operatelog.config.DevelopOperateLogRpcAutoConfiguration

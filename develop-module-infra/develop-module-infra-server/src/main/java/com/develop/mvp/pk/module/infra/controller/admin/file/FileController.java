@@ -1,0 +1,170 @@
+package com.develop.mvp.pk.module.infra.controller.admin.file;
+
+import cn.hutool.core.io.IoUtil;
+import cn.hutool.core.util.StrUtil;
+import cn.hutool.core.util.URLUtil;
+import com.develop.mvp.pk.framework.common.pojo.CommonResult;
+import com.develop.mvp.pk.framework.common.pojo.PageResult;
+import com.develop.mvp.pk.framework.common.util.object.BeanUtils;
+import com.develop.mvp.pk.framework.tenant.core.aop.TenantIgnore;
+import com.develop.mvp.pk.module.infra.application.file.port.inbound.FileUseCase;
+import com.develop.mvp.pk.module.infra.controller.admin.file.vo.file.*;
+import com.develop.mvp.pk.module.infra.domain.file.File;
+import com.develop.mvp.pk.module.infra.framework.file.core.client.FileClient;
+import com.develop.mvp.pk.module.infra.service.file.FileConfigService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.Parameters;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.annotation.Resource;
+import jakarta.annotation.security.PermitAll;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import jakarta.validation.Valid;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpStatus;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.nio.charset.StandardCharsets;
+import java.util.List;
+import java.util.stream.Collectors;
+
+import static com.develop.mvp.pk.framework.common.pojo.CommonResult.success;
+import static com.develop.mvp.pk.module.infra.framework.file.core.utils.FileTypeUtils.writeAttachment;
+
+@Tag(name = "管理后台 - 文件存储")
+@RestController
+@RequestMapping("/infra/file")
+@Validated
+@Slf4j
+public class FileController {
+
+    @Resource
+    private FileUseCase fileApplicationService;
+    @Resource
+    private FileConfigService fileConfigService; // 保留用于 FileClient 管理
+
+    @PostMapping("/upload")
+    @Operation(summary = "上传文件", description = "模式一：后端上传文件")
+    @Parameter(name = "file", description = "文件附件", required = true,
+            schema = @Schema(type = "string", format = "binary"))
+    public CommonResult<String> uploadFile(@Valid FileUploadReqVO uploadReqVO) throws Exception {
+        MultipartFile file = uploadReqVO.getFile();
+        byte[] content = IoUtil.readBytes(file.getInputStream());
+        FileClient masterClient = fileConfigService.getMasterFileClient();
+        return success(fileApplicationService.uploadFile(content, file.getOriginalFilename(),
+                uploadReqVO.getDirectory(), file.getContentType(), masterClient));
+    }
+
+    @GetMapping("/presigned-url")
+    @Operation(summary = "获取文件预签名地址（上传）", description = "模式二：前端上传文件")
+    @Parameters({
+            @Parameter(name = "name", description = "文件名称", required = true),
+            @Parameter(name = "directory", description = "文件目录")
+    })
+    public CommonResult<FilePresignedUrlRespVO> getFilePresignedUrl(
+            @RequestParam("name") String name,
+            @RequestParam(value = "directory", required = false) String directory) {
+        // 使用 master FileClient 生成文件预签名地址
+        String path = directory != null ? directory + "/" + name : name;
+        FileClient masterClient = fileConfigService.getMasterFileClient();
+        String uploadUrl = masterClient.presignPutUrl(path);
+        String visitUrl = masterClient.presignGetUrl(path, null);
+        return success(new FilePresignedUrlRespVO().setConfigId(masterClient.getId())
+                .setPath(path).setUploadUrl(uploadUrl).setUrl(visitUrl));
+    }
+
+    @PostMapping("/create")
+    @Operation(summary = "创建文件", description = "模式二：前端上传文件：配合 presigned-url 接口")
+    public CommonResult<Long> createFile(@Valid @RequestBody FileCreateReqVO createReqVO) {
+        return success(fileApplicationService.createFileRecord(
+                createReqVO.getConfigId(), createReqVO.getName(), createReqVO.getPath(),
+                createReqVO.getUrl(), createReqVO.getType(), createReqVO.getSize()));
+    }
+
+    @GetMapping("/get")
+    @Operation(summary = "获得文件")
+    @Parameter(name = "id", description = "编号", required = true)
+    @PreAuthorize("@ss.hasPermission('infra:file:query')")
+    public CommonResult<FileRespVO> getFile(@RequestParam("id") Long id) {
+        File file = fileApplicationService.getFile(id);
+        return success(toFileRespVO(file));
+    }
+
+    @DeleteMapping("/delete")
+    @Operation(summary = "删除文件")
+    @Parameter(name = "id", description = "编号", required = true)
+    @PreAuthorize("@ss.hasPermission('infra:file:delete')")
+    public CommonResult<Boolean> deleteFile(@RequestParam("id") Long id) throws Exception {
+        File file = fileApplicationService.getFile(id);
+        FileClient fileClient = file != null && file.configId() != null
+                ? fileConfigService.getFileClient(file.configId().value()) : null;
+        fileApplicationService.deleteFile(id, fileClient);
+        return success(true);
+    }
+
+    @DeleteMapping("/delete-list")
+    @Operation(summary = "批量删除文件")
+    @Parameter(name = "ids", description = "编号列表", required = true)
+    @PreAuthorize("@ss.hasPermission('infra:file:delete')")
+    public CommonResult<Boolean> deleteFileList(@RequestParam("ids") List<Long> ids) throws Exception {
+        fileApplicationService.deleteFileList(ids, configId ->
+                configId != null ? fileConfigService.getFileClient(configId) : null);
+        return success(true);
+    }
+
+    @GetMapping("/{configId}/get/**")
+    @PermitAll
+    @TenantIgnore
+    @Operation(summary = "下载文件")
+    @Parameter(name = "configId", description = "配置编号", required = true)
+    public void getFileContent(HttpServletRequest request,
+                               HttpServletResponse response,
+                               @PathVariable("configId") Long configId) throws Exception {
+        String path = StrUtil.subAfter(request.getRequestURI(), "/get/", false);
+        if (StrUtil.isEmpty(path)) {
+            throw new IllegalArgumentException("结尾的 path 路径必须传递");
+        }
+        path = URLUtil.decode(path, StandardCharsets.UTF_8, false);
+        FileClient fileClient = fileConfigService.getFileClient(configId);
+        byte[] content = fileClient.getContent(path);
+        if (content == null) {
+            log.warn("[getFileContent][configId({}) path({}) 文件不存在]", configId, path);
+            response.setStatus(HttpStatus.NOT_FOUND.value());
+            return;
+        }
+        writeAttachment(response, path, content);
+    }
+
+    @GetMapping("/page")
+    @Operation(summary = "获得文件分页")
+    @PreAuthorize("@ss.hasPermission('infra:file:query')")
+    public CommonResult<PageResult<FileRespVO>> getFilePage(@Valid FilePageReqVO pageVO) {
+        PageResult<File> pageResult = fileApplicationService.getFilePage(
+                pageVO.getPath(), pageVO.getType(), pageVO.getCreateTime(),
+                pageVO.getPageNo(), pageVO.getPageSize());
+        PageResult<FileRespVO> voPage = new PageResult<>(
+                pageResult.getList().stream().map(this::toFileRespVO).collect(Collectors.toList()),
+                pageResult.getTotal());
+        return success(voPage);
+    }
+
+    // ── 转换方法 ──
+
+    private FileRespVO toFileRespVO(File file) {
+        if (file == null) return null;
+        FileRespVO vo = new FileRespVO();
+        vo.setId(file.id().value());
+        vo.setConfigId(file.configId() != null ? file.configId().value() : null);
+        vo.setName(file.name());
+        vo.setPath(file.path());
+        vo.setUrl(file.url());
+        vo.setType(file.type());
+        vo.setSize(file.size());
+        return vo;
+    }
+}

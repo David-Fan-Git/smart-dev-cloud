@@ -1,0 +1,31 @@
+package com.develop.mvp.pk.module.bpm.api.event;
+
+import com.develop.mvp.pk.module.bpm.framework.flowable.core.util.BpmHttpRequestUtils;
+import jakarta.annotation.Resource;
+import jakarta.validation.Valid;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.client.RestTemplate;
+
+/**
+ * 合同审批的结果的监听器实现类
+ *
+ * @author David
+ */
+public class CrmContractStatusListener extends BpmProcessInstanceStatusEventListener {
+
+    @Resource
+    private RestTemplate loadBalancedRestTemplate;
+
+    @Override
+    public String getProcessDefinitionKey() {
+        return "crm-contract-audit";
+    }
+
+    @Override
+    public void onEvent(@RequestBody @Valid BpmProcessInstanceStatusEvent event) {
+        BpmHttpRequestUtils.executeBpmHttpRequest(event,
+                "http://crm-server/rpc-api/crm/contract/update-audit-status",
+                loadBalancedRestTemplate);
+    }
+
+}

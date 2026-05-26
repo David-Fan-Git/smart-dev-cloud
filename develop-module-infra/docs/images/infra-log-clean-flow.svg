@@ -1,0 +1,71 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1180" height="760" viewBox="0 0 1180 760">
+
+<style>
+  .bg { fill:#f8fafc; }
+  .title { font:700 26px Arial, 'Microsoft YaHei', sans-serif; fill:#0f172a; }
+  .subtitle { font:500 14px Arial, 'Microsoft YaHei', sans-serif; fill:#475569; }
+  .box-title { font:700 15px Arial, 'Microsoft YaHei', sans-serif; fill:#0f172a; }
+  .box-text { font:12px Arial, 'Microsoft YaHei', sans-serif; fill:#334155; }
+  .small { font:11px Arial, 'Microsoft YaHei', sans-serif; fill:#475569; }
+  .line { stroke:#64748b; stroke-width:1.8; fill:none; marker-end:url(#arrow); }
+  .dash { stroke:#94a3b8; stroke-width:1.5; stroke-dasharray:6 5; fill:none; marker-end:url(#arrow); }
+  .blue { fill:#dbeafe; stroke:#2563eb; }
+  .green { fill:#dcfce7; stroke:#16a34a; }
+  .yellow { fill:#fef9c3; stroke:#ca8a04; }
+  .purple { fill:#ede9fe; stroke:#7c3aed; }
+  .red { fill:#fee2e2; stroke:#dc2626; }
+  .cyan { fill:#cffafe; stroke:#0891b2; }
+  .orange { fill:#ffedd5; stroke:#ea580c; }
+  .gray { fill:#e2e8f0; stroke:#64748b; }
+  .white { fill:#ffffff; stroke:#cbd5e1; }
+</style>
+<defs>
+  <marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto" markerUnits="strokeWidth">
+    <path d="M0,0 L0,6 L9,3 z" fill="#64748b" />
+  </marker>
+</defs>
+
+<rect width="100%" height="100%" class="bg"/>
+
+<text x="590" y="42" text-anchor="middle" class="title">API 日志记录与清理流程</text>
+<text x="590" y="68" text-anchor="middle" class="subtitle">infra 管理 API 访问日志和错误日志，并通过 XXL-Job 定期清理历史数据</text>
+<rect x="70" y="130" width="190" height="80" rx="12" class="white"/>
+<text x="165.0" y="154" text-anchor="middle" class="box-title">Web 请求</text>
+<text x="165.0" y="177" text-anchor="middle" class="box-text">业务接口访问</text>
+<text x="165.0" y="194" text-anchor="middle" class="box-text">异常请求</text>
+<rect x="330" y="130" width="210" height="80" rx="12" class="blue"/>
+<text x="435.0" y="154" text-anchor="middle" class="box-title">日志采集 / API</text>
+<text x="435.0" y="177" text-anchor="middle" class="box-text">ApiAccessLog</text>
+<text x="435.0" y="194" text-anchor="middle" class="box-text">ApiErrorLog</text>
+<rect x="610" y="130" width="220" height="80" rx="12" class="green"/>
+<text x="720.0" y="154" text-anchor="middle" class="box-title">ApplicationService</text>
+<text x="720.0" y="177" text-anchor="middle" class="box-text">分页查询</text>
+<text x="720.0" y="194" text-anchor="middle" class="box-text">处理错误日志</text>
+<text x="720.0" y="211" text-anchor="middle" class="box-text">写入/更新状态</text>
+<rect x="900" y="130" width="190" height="80" rx="12" class="orange"/>
+<text x="995.0" y="154" text-anchor="middle" class="box-title">MyBatis Mapper</text>
+<text x="995.0" y="177" text-anchor="middle" class="box-text">访问日志表</text>
+<text x="995.0" y="194" text-anchor="middle" class="box-text">错误日志表</text>
+<path d="M260,170 L330,170" class="line"/>
+<path d="M540,170 L610,170" class="line"/>
+<path d="M830,170 L900,170" class="line"/>
+<rect x="110" y="405" width="210" height="80" rx="12" class="purple"/>
+<text x="215.0" y="429" text-anchor="middle" class="box-title">XXL-Job</text>
+<text x="215.0" y="452" text-anchor="middle" class="box-text">定时触发</text>
+<rect x="390" y="405" width="230" height="80" rx="12" class="cyan"/>
+<text x="505.0" y="429" text-anchor="middle" class="box-title">AccessLogCleanJob</text>
+<text x="505.0" y="452" text-anchor="middle" class="box-text">清理访问日志</text>
+<rect x="690" y="405" width="230" height="80" rx="12" class="cyan"/>
+<text x="805.0" y="429" text-anchor="middle" class="box-title">ErrorLogCleanJob</text>
+<text x="805.0" y="452" text-anchor="middle" class="box-text">清理错误日志</text>
+<path d="M320,445 L390,445" class="line"/>
+<path d="M620,445 L690,445" class="line"/>
+<path d="M505,485 L900,210" class="dash"/>
+<text x="675" y="350" text-anchor="middle" class="small">删除历史访问日志</text>
+<path d="M805,485 L970,210" class="dash"/>
+<text x="925" y="350" text-anchor="middle" class="small">删除历史错误日志</text>
+<rect x="170" y="625" width="840" height="55" rx="12" class="red"/>
+<text x="590.0" y="649" text-anchor="middle" class="box-title">维护边界</text>
+<text x="590.0" y="672" text-anchor="middle" class="box-text">日志查询和处理属于 infra 运维能力；业务模块只产生日志语义，不应直接管理 infra 日志表生命周期。</text>
+
+</svg>

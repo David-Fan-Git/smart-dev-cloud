@@ -1,0 +1,113 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1180" height="760" viewBox="0 0 1180 760">
+
+<style>
+  .bg { fill:#f8fafc; }
+  .title { font:700 26px Arial, 'Microsoft YaHei', sans-serif; fill:#0f172a; }
+  .subtitle { font:500 14px Arial, 'Microsoft YaHei', sans-serif; fill:#475569; }
+  .box-title { font:700 15px Arial, 'Microsoft YaHei', sans-serif; fill:#0f172a; }
+  .box-text { font:12px Arial, 'Microsoft YaHei', sans-serif; fill:#334155; }
+  .small { font:11px Arial, 'Microsoft YaHei', sans-serif; fill:#475569; }
+  .line { stroke:#64748b; stroke-width:1.8; fill:none; marker-end:url(#arrow); }
+  .dash { stroke:#94a3b8; stroke-width:1.5; stroke-dasharray:6 5; fill:none; marker-end:url(#arrow); }
+  .blue { fill:#dbeafe; stroke:#2563eb; }
+  .green { fill:#dcfce7; stroke:#16a34a; }
+  .yellow { fill:#fef9c3; stroke:#ca8a04; }
+  .purple { fill:#ede9fe; stroke:#7c3aed; }
+  .red { fill:#fee2e2; stroke:#dc2626; }
+  .cyan { fill:#cffafe; stroke:#0891b2; }
+  .orange { fill:#ffedd5; stroke:#ea580c; }
+  .gray { fill:#e2e8f0; stroke:#64748b; }
+  .white { fill:#ffffff; stroke:#cbd5e1; }
+</style>
+<defs>
+  <marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto" markerUnits="strokeWidth">
+    <path d="M0,0 L0,6 L9,3 z" fill="#64748b" />
+  </marker>
+</defs>
+
+<rect width="100%" height="100%" class="bg"/>
+
+<text x="590" y="42" text-anchor="middle" class="title">develop-module-system 模块运行架构</text>
+<text x="590" y="68" text-anchor="middle" class="subtitle">系统管理基础域：认证授权、用户组织、角色菜单、租户、字典、日志、通知、短信、OAuth2 与社交登录</text>
+<rect x="40" y="110" width="210" height="120" rx="12" class="white"/>
+<text x="145.0" y="134" text-anchor="middle" class="box-title">调用方</text>
+<text x="145.0" y="157" text-anchor="middle" class="box-text">管理后台 / 移动端</text>
+<text x="145.0" y="174" text-anchor="middle" class="box-text">Gateway 路由</text>
+<text x="145.0" y="191" text-anchor="middle" class="box-text">其它业务模块</text>
+<rect x="310" y="100" width="240" height="140" rx="12" class="cyan"/>
+<text x="430.0" y="124" text-anchor="middle" class="box-title">develop-module-system-api</text>
+<text x="430.0" y="147" text-anchor="middle" class="box-text">DTO / Enum</text>
+<text x="430.0" y="164" text-anchor="middle" class="box-text">CommonApi / Feign RemoteClient</text>
+<text x="430.0" y="181" text-anchor="middle" class="box-text">跨模块稳定契约</text>
+<rect x="630" y="90" width="270" height="160" rx="12" class="blue"/>
+<text x="765.0" y="114" text-anchor="middle" class="box-title">develop-module-system-server</text>
+<text x="765.0" y="137" text-anchor="middle" class="box-text">Controller / ApplicationService</text>
+<text x="765.0" y="154" text-anchor="middle" class="box-text">Domain / Infrastructure</text>
+<text x="765.0" y="171" text-anchor="middle" class="box-text">DAL / MQ / Job</text>
+<rect x="960" y="100" width="180" height="140" rx="12" class="purple"/>
+<text x="1050.0" y="124" text-anchor="middle" class="box-title">develop-server</text>
+<text x="1050.0" y="147" text-anchor="middle" class="box-text">主启动容器</text>
+<text x="1050.0" y="164" text-anchor="middle" class="box-text">按依赖装配 server 模块</text>
+<text x="1050.0" y="181" text-anchor="middle" class="box-text">统一暴露 REST API</text>
+<path d="M250,170 L310,170" class="line"/>
+<text x="280.0" y="155" text-anchor="middle" class="small">依赖 API 契约</text>
+<path d="M550,170 L630,170" class="line"/>
+<text x="590.0" y="155" text-anchor="middle" class="small">本地实现 / 远程适配</text>
+<path d="M900,170 L960,170" class="line"/>
+<text x="930.0" y="155" text-anchor="middle" class="small">Maven 装配</text>
+<rect x="60" y="330" width="180" height="105" rx="12" class="green"/>
+<text x="150.0" y="354" text-anchor="middle" class="box-title">安全与权限</text>
+<text x="150.0" y="377" text-anchor="middle" class="box-text">Security Starter</text>
+<text x="150.0" y="394" text-anchor="middle" class="box-text">Token / Permission</text>
+<text x="150.0" y="411" text-anchor="middle" class="box-text">DataPermission</text>
+<rect x="280" y="330" width="180" height="105" rx="12" class="green"/>
+<text x="370.0" y="354" text-anchor="middle" class="box-title">数据与缓存</text>
+<text x="370.0" y="377" text-anchor="middle" class="box-text">MyBatis Plus</text>
+<text x="370.0" y="394" text-anchor="middle" class="box-text">MySQL Mapper / DO</text>
+<text x="370.0" y="411" text-anchor="middle" class="box-text">Redis / OAuth2 Token</text>
+<rect x="500" y="330" width="180" height="105" rx="12" class="green"/>
+<text x="590.0" y="354" text-anchor="middle" class="box-title">多租户与组织</text>
+<text x="590.0" y="377" text-anchor="middle" class="box-text">Tenant Starter</text>
+<text x="590.0" y="394" text-anchor="middle" class="box-text">Dept / Post</text>
+<text x="590.0" y="411" text-anchor="middle" class="box-text">Role / Menu</text>
+<rect x="720" y="330" width="180" height="105" rx="12" class="green"/>
+<text x="810.0" y="354" text-anchor="middle" class="box-title">消息与任务</text>
+<text x="810.0" y="377" text-anchor="middle" class="box-text">MQ Starter</text>
+<text x="810.0" y="394" text-anchor="middle" class="box-text">Mail / SMS Message</text>
+<text x="810.0" y="411" text-anchor="middle" class="box-text">XXL-Job Token Clean</text>
+<rect x="940" y="330" width="180" height="105" rx="12" class="green"/>
+<text x="1030.0" y="354" text-anchor="middle" class="box-title">外部能力</text>
+<text x="1030.0" y="377" text-anchor="middle" class="box-text">Infra Config API</text>
+<text x="1030.0" y="394" text-anchor="middle" class="box-text">JustAuth / WeChat</text>
+<text x="1030.0" y="411" text-anchor="middle" class="box-text">Captcha / Mail</text>
+<path d="M720,250 L150,330" class="dash"/>
+<path d="M740,250 L370,330" class="dash"/>
+<path d="M765,250 L590,330" class="dash"/>
+<path d="M790,250 L810,330" class="dash"/>
+<path d="M820,250 L1030,330" class="dash"/>
+<rect x="60" y="540" width="250" height="120" rx="12" class="yellow"/>
+<text x="185.0" y="564" text-anchor="middle" class="box-title">核心业务域</text>
+<text x="185.0" y="587" text-anchor="middle" class="box-text">auth / user / permission / tenant</text>
+<text x="185.0" y="604" text-anchor="middle" class="box-text">dept / dict / logger</text>
+<text x="185.0" y="621" text-anchor="middle" class="box-text">mail / notice / notify / sms</text>
+<text x="185.0" y="638" text-anchor="middle" class="box-text">oauth2 / social / member</text>
+<rect x="365" y="540" width="210" height="120" rx="12" class="yellow"/>
+<text x="470.0" y="564" text-anchor="middle" class="box-title">入站接口</text>
+<text x="470.0" y="587" text-anchor="middle" class="box-text">35 个 Controller</text>
+<text x="470.0" y="604" text-anchor="middle" class="box-text">admin 与 app 双端入口</text>
+<text x="470.0" y="621" text-anchor="middle" class="box-text">18 个 UseCase / ApplicationService</text>
+<rect x="630" y="540" width="210" height="120" rx="12" class="yellow"/>
+<text x="735.0" y="564" text-anchor="middle" class="box-title">领域与基础设施</text>
+<text x="735.0" y="587" text-anchor="middle" class="box-text">14 个领域上下文</text>
+<text x="735.0" y="604" text-anchor="middle" class="box-text">19 个领域仓储接口</text>
+<text x="735.0" y="621" text-anchor="middle" class="box-text">17 个仓储实现</text>
+<rect x="895" y="540" width="210" height="120" rx="12" class="yellow"/>
+<text x="1000.0" y="564" text-anchor="middle" class="box-title">持久化与集成</text>
+<text x="1000.0" y="587" text-anchor="middle" class="box-text">32 个 MyBatis Mapper</text>
+<text x="1000.0" y="604" text-anchor="middle" class="box-text">2 个 Redis 组件</text>
+<text x="1000.0" y="621" text-anchor="middle" class="box-text">6 个 MQ 类 / 3 个 Job 类</text>
+<path d="M310,600 L365,600" class="line"/>
+<path d="M575,600 L630,600" class="line"/>
+<path d="M840,600 L895,600" class="line"/>
+
+</svg>

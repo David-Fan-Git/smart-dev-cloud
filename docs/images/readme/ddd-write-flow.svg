@@ -1,0 +1,95 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="760" viewBox="0 0 1200 760">
+
+<style>
+  .title { font: 700 24px Arial, 'PingFang SC', 'Microsoft YaHei', sans-serif; fill: #111827; }
+  .subtitle { font: 500 14px Arial, 'PingFang SC', 'Microsoft YaHei', sans-serif; fill: #4b5563; }
+  .box-title { font: 700 15px Arial, 'PingFang SC', 'Microsoft YaHei', sans-serif; fill: #111827; }
+  .box-text { font: 12px Arial, 'PingFang SC', 'Microsoft YaHei', sans-serif; fill: #374151; }
+  .small { font: 11px Arial, 'PingFang SC', 'Microsoft YaHei', sans-serif; fill: #4b5563; }
+  .line { stroke: #64748b; stroke-width: 1.8; fill: none; marker-end: url(#arrow); }
+  .dash { stroke: #94a3b8; stroke-width: 1.6; stroke-dasharray: 6 5; fill: none; marker-end: url(#arrow); }
+  .section { fill: #f8fafc; stroke: #cbd5e1; stroke-width: 1.2; rx: 18; }
+  .blue { fill: #dbeafe; stroke: #2563eb; }
+  .green { fill: #dcfce7; stroke: #16a34a; }
+  .yellow { fill: #fef3c7; stroke: #d97706; }
+  .purple { fill: #ede9fe; stroke: #7c3aed; }
+  .red { fill: #fee2e2; stroke: #dc2626; }
+  .cyan { fill: #cffafe; stroke: #0891b2; }
+  .gray { fill: #f1f5f9; stroke: #64748b; }
+  .dark { fill: #111827; stroke: #111827; }
+</style>
+<defs>
+  <marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto" markerUnits="strokeWidth">
+    <path d="M0,0 L0,6 L9,3 z" fill="#64748b" />
+  </marker>
+</defs>
+
+<rect width="100%" height="100%" fill="#ffffff"/>
+
+<text x="600" y="42" text-anchor="middle" class="title">DDD 聚合写入流程</text>
+<text x="600" y="68" text-anchor="middle" class="subtitle">ApplicationService 编排用例，Domain 执行业务不变量，Infrastructure 适配持久化与事件发布</text>
+
+<rect x="90" y="110" width="190" height="60" rx="12" class="blue"/>
+<text x="185.0" y="136" text-anchor="middle" class="box-title">Controller</text>
+<text x="185.0" y="158" text-anchor="middle" class="box-text">接收请求 / 参数校验</text>
+
+
+<rect x="390" y="110" width="220" height="60" rx="12" class="green"/>
+<text x="500.0" y="136" text-anchor="middle" class="box-title">ApplicationService</text>
+<text x="500.0" y="158" text-anchor="middle" class="box-text">事务边界 / 用例编排</text>
+
+
+<rect x="720" y="110" width="190" height="60" rx="12" class="cyan"/>
+<text x="815.0" y="136" text-anchor="middle" class="box-title">Factory</text>
+<text x="815.0" y="158" text-anchor="middle" class="box-text">创建聚合</text>
+
+
+<rect x="720" y="230" width="190" height="70" rx="12" class="purple"/>
+<text x="815.0" y="256" text-anchor="middle" class="box-title">AggregateRoot</text>
+<text x="815.0" y="278" text-anchor="middle" class="box-text">业务规则</text>
+<text x="815.0" y="296" text-anchor="middle" class="box-text">不变量校验</text>
+
+
+<rect x="390" y="360" width="220" height="70" rx="12" class="purple"/>
+<text x="500.0" y="386" text-anchor="middle" class="box-title">Repository Port</text>
+<text x="500.0" y="408" text-anchor="middle" class="box-text">领域仓储接口</text>
+
+
+<rect x="720" y="360" width="190" height="70" rx="12" class="yellow"/>
+<text x="815.0" y="386" text-anchor="middle" class="box-title">RepositoryImpl</text>
+<text x="815.0" y="408" text-anchor="middle" class="box-text">Domain &lt;-&gt; DO</text>
+
+
+<rect x="960" y="360" width="160" height="70" rx="12" class="yellow"/>
+<text x="1040.0" y="386" text-anchor="middle" class="box-title">Mapper / DB</text>
+<text x="1040.0" y="408" text-anchor="middle" class="box-text">insert / update</text>
+
+
+<rect x="390" y="530" width="220" height="70" rx="12" class="red"/>
+<text x="500.0" y="556" text-anchor="middle" class="box-title">DomainEvent</text>
+<text x="500.0" y="578" text-anchor="middle" class="box-text">领域事件</text>
+
+
+<rect x="720" y="530" width="190" height="70" rx="12" class="red"/>
+<text x="815.0" y="556" text-anchor="middle" class="box-title">Event Adapter</text>
+<text x="815.0" y="578" text-anchor="middle" class="box-text">Spring Event / MQ</text>
+
+
+<path d="M280,140 L390,140" class="line"/>
+
+<path d="M610,140 L720,140" class="line"/>
+
+<path d="M815,170 L815,230" class="line"/>
+
+<path d="M720,265 L610,395" class="line"/>
+<text x="665.0" y="324.0" text-anchor="middle" class="small">save</text>
+<path d="M610,395 L720,395" class="line"/>
+
+<path d="M910,395 L960,395" class="line"/>
+
+<path d="M500,430 L500,530" class="line"/>
+<text x="500.0" y="474.0" text-anchor="middle" class="small">publish</text>
+<path d="M610,565 L720,565" class="line"/>
+
+
+</svg>

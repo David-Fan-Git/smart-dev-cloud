@@ -1,0 +1,4 @@
+com.develop.mvp.pk.framework.idempotent.config.DevelopIdempotentConfiguration
+com.develop.mvp.pk.framework.lock4j.config.DevelopLock4jConfiguration
+com.develop.mvp.pk.framework.ratelimiter.config.DevelopRateLimiterConfiguration
+com.develop.mvp.pk.framework.signature.config.DevelopApiSignatureAutoConfiguration

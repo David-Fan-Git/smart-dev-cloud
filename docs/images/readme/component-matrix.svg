@@ -1,0 +1,182 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1300" height="900" viewBox="0 0 1300 900">
+
+<style>
+  .title { font: 700 24px Arial, 'PingFang SC', 'Microsoft YaHei', sans-serif; fill: #111827; }
+  .subtitle { font: 500 14px Arial, 'PingFang SC', 'Microsoft YaHei', sans-serif; fill: #4b5563; }
+  .box-title { font: 700 15px Arial, 'PingFang SC', 'Microsoft YaHei', sans-serif; fill: #111827; }
+  .box-text { font: 12px Arial, 'PingFang SC', 'Microsoft YaHei', sans-serif; fill: #374151; }
+  .small { font: 11px Arial, 'PingFang SC', 'Microsoft YaHei', sans-serif; fill: #4b5563; }
+  .line { stroke: #64748b; stroke-width: 1.8; fill: none; marker-end: url(#arrow); }
+  .dash { stroke: #94a3b8; stroke-width: 1.6; stroke-dasharray: 6 5; fill: none; marker-end: url(#arrow); }
+  .section { fill: #f8fafc; stroke: #cbd5e1; stroke-width: 1.2; rx: 18; }
+  .blue { fill: #dbeafe; stroke: #2563eb; }
+  .green { fill: #dcfce7; stroke: #16a34a; }
+  .yellow { fill: #fef3c7; stroke: #d97706; }
+  .purple { fill: #ede9fe; stroke: #7c3aed; }
+  .red { fill: #fee2e2; stroke: #dc2626; }
+  .cyan { fill: #cffafe; stroke: #0891b2; }
+  .gray { fill: #f1f5f9; stroke: #64748b; }
+  .dark { fill: #111827; stroke: #111827; }
+</style>
+<defs>
+  <marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto" markerUnits="strokeWidth">
+    <path d="M0,0 L0,6 L9,3 z" fill="#64748b" />
+  </marker>
+</defs>
+
+<rect width="100%" height="100%" fill="#ffffff"/>
+
+<text x="650" y="42" text-anchor="middle" class="title">业务模块与基础组件调用关系</text>
+<text x="650" y="68" text-anchor="middle" class="subtitle">基于各 *-server/pom.xml 直接依赖整理：业务模块通过 api 契约与 Framework Starter 获得平台能力</text>
+<rect x="40" y="100" width="1220" height="730" class="section"/>
+<text x="70" y="132" class="box-title">业务模块</text>
+
+<rect x="80" y="165" width="120" height="42" rx="12" class="purple"/>
+<text x="140.0" y="191" text-anchor="middle" class="box-title">system</text>
+
+
+
+<rect x="80" y="225" width="120" height="42" rx="12" class="purple"/>
+<text x="140.0" y="251" text-anchor="middle" class="box-title">infra</text>
+
+
+
+<rect x="80" y="285" width="120" height="42" rx="12" class="gray"/>
+<text x="140.0" y="311" text-anchor="middle" class="box-title">member</text>
+
+
+
+<rect x="80" y="345" width="120" height="42" rx="12" class="gray"/>
+<text x="140.0" y="371" text-anchor="middle" class="box-title">bpm</text>
+
+
+
+<rect x="80" y="405" width="120" height="42" rx="12" class="gray"/>
+<text x="140.0" y="431" text-anchor="middle" class="box-title">pay</text>
+
+
+
+<rect x="80" y="465" width="120" height="42" rx="12" class="gray"/>
+<text x="140.0" y="491" text-anchor="middle" class="box-title">mall</text>
+
+
+
+<rect x="80" y="525" width="120" height="42" rx="12" class="gray"/>
+<text x="140.0" y="551" text-anchor="middle" class="box-title">crm / erp</text>
+
+
+
+<rect x="80" y="585" width="120" height="42" rx="12" class="gray"/>
+<text x="140.0" y="611" text-anchor="middle" class="box-title">iot / mes / wms</text>
+
+
+
+<rect x="80" y="645" width="120" height="42" rx="12" class="gray"/>
+<text x="140.0" y="671" text-anchor="middle" class="box-title">ai</text>
+
+
+
+<text x="395" y="132" text-anchor="middle" class="box-title">Framework Starter</text>
+
+<rect x="280" y="165" width="95" height="42" rx="12" class="blue"/>
+<text x="327.5" y="191" text-anchor="middle" class="box-title">Web</text>
+
+
+
+<rect x="390" y="165" width="95" height="42" rx="12" class="blue"/>
+<text x="437.5" y="191" text-anchor="middle" class="box-title">Security</text>
+
+
+
+<rect x="500" y="165" width="95" height="42" rx="12" class="blue"/>
+<text x="547.5" y="191" text-anchor="middle" class="box-title">MyBatis</text>
+
+
+
+<rect x="610" y="165" width="95" height="42" rx="12" class="blue"/>
+<text x="657.5" y="191" text-anchor="middle" class="box-title">Redis</text>
+
+
+
+<rect x="720" y="165" width="95" height="42" rx="12" class="blue"/>
+<text x="767.5" y="191" text-anchor="middle" class="box-title">RPC</text>
+
+
+
+<rect x="280" y="235" width="95" height="42" rx="12" class="blue"/>
+<text x="327.5" y="261" text-anchor="middle" class="box-title">MQ</text>
+
+
+
+<rect x="390" y="235" width="95" height="42" rx="12" class="blue"/>
+<text x="437.5" y="261" text-anchor="middle" class="box-title">Job</text>
+
+
+
+<rect x="500" y="235" width="95" height="42" rx="12" class="blue"/>
+<text x="547.5" y="261" text-anchor="middle" class="box-title">Tenant</text>
+
+
+
+<rect x="610" y="235" width="95" height="42" rx="12" class="blue"/>
+<text x="657.5" y="261" text-anchor="middle" class="box-title">Excel</text>
+
+
+
+<rect x="720" y="235" width="95" height="42" rx="12" class="blue"/>
+<text x="767.5" y="261" text-anchor="middle" class="box-title">Monitor</text>
+
+
+
+<text x="1035" y="132" text-anchor="middle" class="box-title">外部组件</text>
+
+<rect x="910" y="165" width="110" height="42" rx="12" class="yellow"/>
+<text x="965.0" y="191" text-anchor="middle" class="box-title">Database</text>
+
+
+
+<rect x="1040" y="165" width="110" height="42" rx="12" class="yellow"/>
+<text x="1095.0" y="191" text-anchor="middle" class="box-title">Redis</text>
+
+
+
+<rect x="1170" y="165" width="70" height="42" rx="12" class="yellow"/>
+<text x="1205.0" y="191" text-anchor="middle" class="box-title">Nacos</text>
+
+
+
+<rect x="910" y="235" width="110" height="42" rx="12" class="yellow"/>
+<text x="965.0" y="261" text-anchor="middle" class="box-title">MQ</text>
+
+
+
+<rect x="1040" y="235" width="110" height="42" rx="12" class="yellow"/>
+<text x="1095.0" y="261" text-anchor="middle" class="box-title">XXL-Job</text>
+
+
+
+<rect x="1170" y="235" width="70" height="42" rx="12" class="yellow"/>
+<text x="1205.0" y="261" text-anchor="middle" class="box-title">SDK</text>
+
+
+
+<path d="M200,186 C250,186 250,186 280,186" class="line"/>
+<path d="M200,246 C250,246 250,246 280,246" class="line"/>
+<path d="M200,306 C420,306 420,210 500,186" class="line"/>
+<path d="M200,366 C420,366 420,210 500,186" class="line"/>
+<path d="M200,426 C530,426 530,210 610,186" class="line"/>
+<path d="M200,486 C640,486 640,210 720,186" class="line"/>
+<path d="M200,546 C530,546 530,260 500,256" class="line"/>
+<path d="M200,606 C530,606 530,210 610,186" class="line"/>
+<path d="M200,666 C760,666 760,260 720,256" class="line"/>
+
+<path d="M595,186 C760,186 760,186 910,186" class="line"/>
+<path d="M705,186 C850,186 850,186 1040,186" class="line"/>
+<path d="M815,186 C930,186 930,186 1170,186" class="line"/>
+<path d="M375,256 C640,256 640,256 910,256" class="line"/>
+<path d="M485,256 C750,256 750,256 1040,256" class="line"/>
+<path d="M815,256 C950,256 950,256 1170,256" class="line"/>
+
+<text x="650" y="780" text-anchor="middle" class="subtitle">说明：不同模块按需依赖 Starter 与外部组件；表格详见 README 中“业务模块组件调用矩阵”。</text>
+
+</svg>

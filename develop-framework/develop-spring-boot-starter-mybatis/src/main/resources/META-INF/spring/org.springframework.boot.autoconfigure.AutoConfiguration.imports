@@ -1,0 +1,3 @@
+com.develop.mvp.pk.framework.datasource.config.DevelopDataSourceAutoConfiguration
+com.develop.mvp.pk.framework.mybatis.config.DevelopMybatisAutoConfiguration
+com.develop.mvp.pk.framework.translate.config.DevelopTranslateAutoConfiguration

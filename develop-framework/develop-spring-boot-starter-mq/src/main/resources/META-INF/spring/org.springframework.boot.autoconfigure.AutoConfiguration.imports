@@ -1,0 +1,3 @@
+com.develop.mvp.pk.framework.mq.redis.config.DevelopRedisMQProducerAutoConfiguration
+com.develop.mvp.pk.framework.mq.redis.config.DevelopRedisMQConsumerAutoConfiguration
+com.develop.mvp.pk.framework.mq.rabbitmq.config.DevelopRabbitMQAutoConfiguration

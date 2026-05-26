@@ -1,0 +1,27 @@
+package com.develop.mvp.pk.module.trade.framework.aftersale.core.annotations;
+
+import com.develop.mvp.pk.module.trade.enums.aftersale.AfterSaleOperateTypeEnum;
+import com.develop.mvp.pk.module.trade.framework.aftersale.core.aop.AfterSaleLogAspect;
+
+import java.lang.annotation.*;
+
+/**
+ * 售后日志的注解
+ *
+ * 写在方法上时，会自动记录售后日志
+ *
+ * @author David
+ * @since 2023/6/8 17:04
+ * @see AfterSaleLogAspect
+ */
+@Target({ElementType.METHOD, ElementType.TYPE})
+@Retention(RetentionPolicy.RUNTIME)
+@Documented
+public @interface AfterSaleLog {
+
+    /**
+     * 操作类型
+     */
+    AfterSaleOperateTypeEnum operateType();
+
+}

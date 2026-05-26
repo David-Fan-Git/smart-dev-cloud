@@ -1,0 +1,21 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(mvn dependency:tree -pl develop-server)",
+      "Bash(jar tf *)",
+      "Bash(mvn install *)",
+      "mcp__plugin_context7_context7__resolve-library-id",
+      "Bash(mvn compile *)",
+      "Bash(python3 *)",
+      "Bash(git status *)",
+      "Bash(git *)",
+      "Bash(grep *)",
+      "Bash(mvn org.springframework.boot:spring-boot-maven-plugin:3.5.14:run *)",
+      "Bash(mvn package *)",
+      "Bash(mvn test *)",
+      "Bash(mvn spring-boot:run *)",
+      "Bash(mvn *)",
+      "Bash(find develop-* -maxdepth 2 -name README.md)"
+    ]
+  }
+}

@@ -1,0 +1,2 @@
+com.develop.mvp.pk.framework.redis.config.DevelopRedisAutoConfiguration
+com.develop.mvp.pk.framework.redis.config.DevelopCacheAutoConfiguration

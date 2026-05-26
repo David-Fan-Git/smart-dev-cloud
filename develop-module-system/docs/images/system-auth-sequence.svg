@@ -1,0 +1,67 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1180" height="760" viewBox="0 0 1180 760">
+
+<style>
+  .bg { fill:#f8fafc; }
+  .title { font:700 26px Arial, 'Microsoft YaHei', sans-serif; fill:#0f172a; }
+  .subtitle { font:500 14px Arial, 'Microsoft YaHei', sans-serif; fill:#475569; }
+  .box-title { font:700 15px Arial, 'Microsoft YaHei', sans-serif; fill:#0f172a; }
+  .box-text { font:12px Arial, 'Microsoft YaHei', sans-serif; fill:#334155; }
+  .small { font:11px Arial, 'Microsoft YaHei', sans-serif; fill:#475569; }
+  .line { stroke:#64748b; stroke-width:1.8; fill:none; marker-end:url(#arrow); }
+  .dash { stroke:#94a3b8; stroke-width:1.5; stroke-dasharray:6 5; fill:none; marker-end:url(#arrow); }
+  .blue { fill:#dbeafe; stroke:#2563eb; }
+  .green { fill:#dcfce7; stroke:#16a34a; }
+  .yellow { fill:#fef9c3; stroke:#ca8a04; }
+  .purple { fill:#ede9fe; stroke:#7c3aed; }
+  .red { fill:#fee2e2; stroke:#dc2626; }
+  .cyan { fill:#cffafe; stroke:#0891b2; }
+  .orange { fill:#ffedd5; stroke:#ea580c; }
+  .gray { fill:#e2e8f0; stroke:#64748b; }
+  .white { fill:#ffffff; stroke:#cbd5e1; }
+</style>
+<defs>
+  <marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto" markerUnits="strokeWidth">
+    <path d="M0,0 L0,6 L9,3 z" fill="#64748b" />
+  </marker>
+</defs>
+
+<rect width="100%" height="100%" class="bg"/>
+
+<text x="590" y="42" text-anchor="middle" class="title">后台账号密码登录认证时序</text>
+<text x="590" y="68" text-anchor="middle" class="subtitle">依据 AuthController 与 AuthApplicationService 的实际调用链整理</text>
+<rect x="60" y="115" width="150" height="55" rx="12" class="white"/>
+<text x="135.0" y="139" text-anchor="middle" class="box-title">Admin Client</text>
+<text x="135.0" y="162" text-anchor="middle" class="box-text">提交账号密码</text>
+<rect x="260" y="115" width="160" height="55" rx="12" class="blue"/>
+<text x="340.0" y="139" text-anchor="middle" class="box-title">AuthController</text>
+<text x="340.0" y="162" text-anchor="middle" class="box-text">/system/auth/login</text>
+<rect x="470" y="115" width="190" height="55" rx="12" class="green"/>
+<text x="565.0" y="139" text-anchor="middle" class="box-title">AuthApplicationService</text>
+<text x="565.0" y="162" text-anchor="middle" class="box-text">login / authenticate</text>
+<rect x="710" y="115" width="150" height="55" rx="12" class="yellow"/>
+<text x="785.0" y="139" text-anchor="middle" class="box-title">UserUseCase</text>
+<text x="785.0" y="162" text-anchor="middle" class="box-text">查询用户 / 校验密码</text>
+<rect x="910" y="115" width="160" height="55" rx="12" class="purple"/>
+<text x="990.0" y="139" text-anchor="middle" class="box-title">OAuth2UseCase</text>
+<text x="990.0" y="162" text-anchor="middle" class="box-text">创建访问令牌</text>
+<path d="M135,220 L340,220" class="line"/>
+<text x="237.5" y="205" text-anchor="middle" class="small">1. POST /login</text>
+<path d="M340,270 L565,270" class="line"/>
+<text x="452.5" y="255" text-anchor="middle" class="small">2. 调用 login(reqVO)</text>
+<path d="M565,320 L785,320" class="line"/>
+<text x="675.0" y="305" text-anchor="middle" class="small">3. 查询用户并匹配密码</text>
+<path d="M785,370 L565,370" class="line"/>
+<text x="675.0" y="355" text-anchor="middle" class="small">4. 返回用户状态</text>
+<path d="M565,420 L990,420" class="line"/>
+<text x="777.5" y="405" text-anchor="middle" class="small">5. 登录成功后创建 Token</text>
+<path d="M990,470 L565,470" class="line"/>
+<text x="777.5" y="455" text-anchor="middle" class="small">6. 返回 accessToken / refreshToken</text>
+<path d="M565,520 L340,520" class="line"/>
+<text x="452.5" y="505" text-anchor="middle" class="small">7. 组装 AuthLoginRespVO</text>
+<path d="M340,570 L135,570" class="line"/>
+<text x="237.5" y="555" text-anchor="middle" class="small">8. CommonResult 返回</text>
+<rect x="150" y="650" width="880" height="55" rx="12" class="red"/>
+<text x="590.0" y="674" text-anchor="middle" class="box-title">关键规则</text>
+<text x="590.0" y="697" text-anchor="middle" class="box-text">验证码校验失败、用户不存在、密码不匹配、用户禁用都会记录登录日志并抛出业务异常</text>
+
+</svg>

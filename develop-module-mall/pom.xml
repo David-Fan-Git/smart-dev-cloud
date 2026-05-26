@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <artifactId>develop</artifactId>
+        <groupId>com.develop.mvp</groupId>
+        <version>${revision}</version>
+    </parent>
+    <modelVersion>4.0.0</modelVersion>
+
+    <artifactId>develop-module-mall</artifactId>
+    <packaging>pom</packaging>
+
+    <name>${project.artifactId}</name>
+
+    <description>
+        商城大模块，由 product 商品、promotion 营销、trade 交易、statistics 统计等组成
+    </description>
+    <modules>
+        <module>develop-module-product-api</module>
+        <module>develop-module-product-server</module>
+        <module>develop-module-promotion-api</module>
+        <module>develop-module-promotion-server</module>
+        <module>develop-module-trade-api</module>
+        <module>develop-module-trade-server</module>
+        <module>develop-module-statistics-api</module>
+        <module>develop-module-statistics-server</module>
+    </modules>
+
+</project>

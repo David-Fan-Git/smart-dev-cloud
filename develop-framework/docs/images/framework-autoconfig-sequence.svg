@@ -1,0 +1,68 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1320" height="700" viewBox="0 0 1320 700">
+
+<style>
+  .bg { fill:#f8fafc; }
+  .panel { fill:#ffffff; stroke:#dbe3ef; stroke-width:1.2; rx:18; filter:url(#shadow); }
+  .soft { fill:#f1f5f9; stroke:#cbd5e1; stroke-width:1.1; rx:14; }
+  .title { font:700 28px Arial, 'PingFang SC', 'Microsoft YaHei', sans-serif; fill:#0f172a; }
+  .subtitle { font:500 14px Arial, 'PingFang SC', 'Microsoft YaHei', sans-serif; fill:#475569; }
+  .section-title { font:700 16px Arial, 'PingFang SC', 'Microsoft YaHei', sans-serif; fill:#1e293b; }
+  .box-title { font:700 15px Arial, 'PingFang SC', 'Microsoft YaHei', sans-serif; fill:#0f172a; }
+  .box-text { font:12px Arial, 'PingFang SC', 'Microsoft YaHei', sans-serif; fill:#334155; }
+  .small { font:11px Arial, 'PingFang SC', 'Microsoft YaHei', sans-serif; fill:#64748b; }
+  .tiny { font:10px Arial, 'PingFang SC', 'Microsoft YaHei', sans-serif; fill:#64748b; }
+  .line { stroke:#64748b; stroke-width:1.8; fill:none; marker-end:url(#arrow); }
+  .dash { stroke:#94a3b8; stroke-width:1.6; stroke-dasharray:6 5; fill:none; marker-end:url(#arrow); }
+  .blue { fill:#dbeafe; stroke:#2563eb; }
+  .green { fill:#dcfce7; stroke:#16a34a; }
+  .yellow { fill:#fef3c7; stroke:#d97706; }
+  .purple { fill:#ede9fe; stroke:#7c3aed; }
+  .red { fill:#fee2e2; stroke:#dc2626; }
+  .cyan { fill:#cffafe; stroke:#0891b2; }
+  .orange { fill:#ffedd5; stroke:#ea580c; }
+  .slate { fill:#e2e8f0; stroke:#64748b; }
+  .white { fill:#ffffff; stroke:#cbd5e1; }
+  .navy { fill:#e0f2fe; stroke:#0284c7; }
+</style>
+<defs>
+  <filter id="shadow" x="-10%" y="-10%" width="120%" height="130%">
+    <feDropShadow dx="0" dy="4" stdDeviation="5" flood-color="#0f172a" flood-opacity="0.10"/>
+  </filter>
+  <marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto" markerUnits="strokeWidth">
+    <path d="M0,0 L0,6 L9,3 z" fill="#64748b" />
+  </marker>
+</defs>
+
+<rect width="100%" height="100%" class="bg"/>
+
+<text x="660" y="42" text-anchor="middle" class="title">Spring Boot 自动配置时序</text>
+<text x="660" y="70" text-anchor="middle" class="subtitle">Starter 进入 Classpath 后，按自动配置条件注册框架组件，业务模块再按需使用</text>
+
+<text x="140" y="130" text-anchor="middle" class="box-title">Spring Boot 应用</text>
+<text x="360" y="130" text-anchor="middle" class="box-title">Maven 依赖解析</text>
+<text x="580" y="130" text-anchor="middle" class="box-title">Starter</text>
+<text x="800" y="130" text-anchor="middle" class="box-title">自动配置</text>
+<text x="1020" y="130" text-anchor="middle" class="box-title">BeanFactory</text>
+<text x="1200" y="130" text-anchor="middle" class="box-title">业务模块</text>
+
+<path d="M140,155 L140,610" class="dash"/>
+<path d="M360,155 L360,610" class="dash"/>
+<path d="M580,155 L580,610" class="dash"/>
+<path d="M800,155 L800,610" class="dash"/>
+<path d="M1020,155 L1020,610" class="dash"/>
+<path d="M1200,155 L1200,610" class="dash"/>
+
+<path d="M140,205 L360,205" class="line"/>
+<text x="250.0" y="190" text-anchor="middle" class="small">1. 声明 Starter 依赖</text>
+<path d="M360,275 L140,275" class="line"/>
+<text x="250.0" y="260" text-anchor="middle" class="small">2. 加入 Classpath</text>
+<path d="M140,345 L580,345" class="line"/>
+<text x="360.0" y="330" text-anchor="middle" class="small">3. 启动发现能力</text>
+<path d="M580,415 L800,415" class="line"/>
+<text x="690.0" y="400" text-anchor="middle" class="small">4. 按条件装配</text>
+<path d="M800,485 L1020,485" class="line"/>
+<text x="910.0" y="470" text-anchor="middle" class="small">5. 注册框架组件</text>
+<path d="M1200,555 L1020,555" class="line"/>
+<text x="1110.0" y="540" text-anchor="middle" class="small">6. 注入并使用</text>
+
+</svg>

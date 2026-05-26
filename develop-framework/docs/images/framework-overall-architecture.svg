@@ -1,0 +1,104 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="820" viewBox="0 0 1280 820">
+
+<style>
+  .bg { fill:#f8fafc; }
+  .panel { fill:#ffffff; stroke:#dbe3ef; stroke-width:1.2; rx:18; filter:url(#shadow); }
+  .soft { fill:#f1f5f9; stroke:#cbd5e1; stroke-width:1.1; rx:14; }
+  .title { font:700 28px Arial, 'PingFang SC', 'Microsoft YaHei', sans-serif; fill:#0f172a; }
+  .subtitle { font:500 14px Arial, 'PingFang SC', 'Microsoft YaHei', sans-serif; fill:#475569; }
+  .section-title { font:700 16px Arial, 'PingFang SC', 'Microsoft YaHei', sans-serif; fill:#1e293b; }
+  .box-title { font:700 15px Arial, 'PingFang SC', 'Microsoft YaHei', sans-serif; fill:#0f172a; }
+  .box-text { font:12px Arial, 'PingFang SC', 'Microsoft YaHei', sans-serif; fill:#334155; }
+  .small { font:11px Arial, 'PingFang SC', 'Microsoft YaHei', sans-serif; fill:#64748b; }
+  .tiny { font:10px Arial, 'PingFang SC', 'Microsoft YaHei', sans-serif; fill:#64748b; }
+  .line { stroke:#64748b; stroke-width:1.8; fill:none; marker-end:url(#arrow); }
+  .dash { stroke:#94a3b8; stroke-width:1.6; stroke-dasharray:6 5; fill:none; marker-end:url(#arrow); }
+  .blue { fill:#dbeafe; stroke:#2563eb; }
+  .green { fill:#dcfce7; stroke:#16a34a; }
+  .yellow { fill:#fef3c7; stroke:#d97706; }
+  .purple { fill:#ede9fe; stroke:#7c3aed; }
+  .red { fill:#fee2e2; stroke:#dc2626; }
+  .cyan { fill:#cffafe; stroke:#0891b2; }
+  .orange { fill:#ffedd5; stroke:#ea580c; }
+  .slate { fill:#e2e8f0; stroke:#64748b; }
+  .white { fill:#ffffff; stroke:#cbd5e1; }
+  .navy { fill:#e0f2fe; stroke:#0284c7; }
+</style>
+<defs>
+  <filter id="shadow" x="-10%" y="-10%" width="120%" height="130%">
+    <feDropShadow dx="0" dy="4" stdDeviation="5" flood-color="#0f172a" flood-opacity="0.10"/>
+  </filter>
+  <marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto" markerUnits="strokeWidth">
+    <path d="M0,0 L0,6 L9,3 z" fill="#64748b" />
+  </marker>
+</defs>
+
+<rect width="100%" height="100%" class="bg"/>
+
+<text x="640" y="42" text-anchor="middle" class="title">develop-framework 总体架构</text>
+<text x="640" y="70" text-anchor="middle" class="subtitle">位于依赖治理、运行单元与业务模块之间，沉淀可复用的横向框架能力</text>
+
+<rect x="50" y="105" width="1180" height="105" class="panel"/>
+<text x="74" y="139" text-anchor="start" class="section-title">依赖治理</text>
+<rect x="465" y="135" width="350" height="52" rx="14" class="navy"/>
+<text x="640.0" y="160" text-anchor="middle" class="box-title">develop-dependencies</text>
+<text x="640.0" y="184" text-anchor="middle" class="box-text">统一治理 Spring / Cloud / MyBatis / Redis 等版本</text>
+
+<rect x="50" y="260" width="1180" height="150" class="panel"/>
+<text x="74" y="294" text-anchor="start" class="section-title">运行单元</text>
+<rect x="170" y="310" width="250" height="70" rx="14" class="green"/>
+<text x="295.0" y="335" text-anchor="middle" class="box-title">develop-server</text>
+<text x="295.0" y="359" text-anchor="middle" class="box-text">模块化单体启动容器</text>
+<text x="295.0" y="376" text-anchor="middle" class="box-text">按 Maven 依赖装配业务模块</text>
+<rect x="860" y="310" width="250" height="70" rx="14" class="green"/>
+<text x="985.0" y="335" text-anchor="middle" class="box-title">develop-gateway</text>
+<text x="985.0" y="359" text-anchor="middle" class="box-text">API 网关入口</text>
+<text x="985.0" y="376" text-anchor="middle" class="box-text">路由与文档聚合</text>
+
+<rect x="50" y="460" width="1180" height="150" class="panel"/>
+<text x="74" y="494" text-anchor="start" class="section-title">业务模块</text>
+<rect x="110" y="510" width="180" height="64" rx="14" class="purple"/>
+<text x="200.0" y="535" text-anchor="middle" class="box-title">system / infra</text>
+<text x="200.0" y="559" text-anchor="middle" class="box-text">默认核心模块</text>
+<rect x="340" y="510" width="180" height="64" rx="14" class="slate"/>
+<text x="430.0" y="535" text-anchor="middle" class="box-title">member / bpm</text>
+<text x="430.0" y="559" text-anchor="middle" class="box-text">会员与工作流</text>
+<rect x="570" y="510" width="180" height="64" rx="14" class="slate"/>
+<text x="660.0" y="535" text-anchor="middle" class="box-title">pay / mall</text>
+<text x="660.0" y="559" text-anchor="middle" class="box-text">支付与商城</text>
+<rect x="800" y="510" width="180" height="64" rx="14" class="slate"/>
+<text x="890.0" y="535" text-anchor="middle" class="box-title">crm / erp</text>
+<text x="890.0" y="559" text-anchor="middle" class="box-text">客户与资源</text>
+<rect x="1030" y="510" width="150" height="64" rx="14" class="slate"/>
+<text x="1105.0" y="535" text-anchor="middle" class="box-title">iot / ai 等</text>
+<text x="1105.0" y="559" text-anchor="middle" class="box-text">可选模块</text>
+
+<rect x="50" y="660" width="1180" height="110" class="panel"/>
+<text x="74" y="694" text-anchor="start" class="section-title">通用框架层</text>
+<rect x="115" y="700" width="190" height="52" rx="14" class="cyan"/>
+<text x="210.0" y="725" text-anchor="middle" class="box-title">develop-common</text>
+<text x="210.0" y="749" text-anchor="middle" class="box-text">基础公共能力</text>
+<rect x="360" y="700" width="220" height="52" rx="14" class="blue"/>
+<text x="470.0" y="725" text-anchor="middle" class="box-title">技术 Starter</text>
+<text x="470.0" y="749" text-anchor="middle" class="box-text">Web / Security / Data / MQ</text>
+<rect x="635" y="700" width="220" height="52" rx="14" class="blue"/>
+<text x="745.0" y="725" text-anchor="middle" class="box-title">治理 Starter</text>
+<text x="745.0" y="749" text-anchor="middle" class="box-text">Monitor / Protection / Job</text>
+<rect x="910" y="700" width="220" height="52" rx="14" class="blue"/>
+<text x="1020.0" y="725" text-anchor="middle" class="box-title">biz-* / 工具</text>
+<text x="1020.0" y="749" text-anchor="middle" class="box-text">租户 / 权限 / Excel / Test</text>
+
+<path d="M640,210 L640,260" class="line"/>
+<text x="705" y="242" text-anchor="middle" class="small">版本约束</text>
+<path d="M295,410 L295,460" class="line"/>
+<text x="390" y="442" text-anchor="middle" class="small">装配业务能力</text>
+<path d="M985,410 L985,460" class="line"/>
+<text x="1085" y="442" text-anchor="middle" class="small">网关依赖框架能力</text>
+<path d="M640,610 L640,660" class="line"/>
+<text x="720" y="642" text-anchor="middle" class="small">复用 Starter</text>
+<path d="M210,700 C210,630 200,610 200,575" class="dash"/>
+<path d="M470,700 C470,635 520,610 620,575" class="dash"/>
+<path d="M745,700 C745,635 780,610 890,575" class="dash"/>
+<path d="M1020,700 C1020,635 1070,610 1105,575" class="dash"/>
+
+</svg>

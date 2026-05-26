@@ -1,0 +1,208 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1400" height="940" viewBox="0 0 1400 940">
+
+<style>
+  .title { font: 700 24px Arial, 'PingFang SC', 'Microsoft YaHei', sans-serif; fill: #111827; }
+  .subtitle { font: 500 14px Arial, 'PingFang SC', 'Microsoft YaHei', sans-serif; fill: #4b5563; }
+  .box-title { font: 700 15px Arial, 'PingFang SC', 'Microsoft YaHei', sans-serif; fill: #111827; }
+  .box-text { font: 12px Arial, 'PingFang SC', 'Microsoft YaHei', sans-serif; fill: #374151; }
+  .small { font: 11px Arial, 'PingFang SC', 'Microsoft YaHei', sans-serif; fill: #4b5563; }
+  .line { stroke: #64748b; stroke-width: 1.8; fill: none; marker-end: url(#arrow); }
+  .dash { stroke: #94a3b8; stroke-width: 1.6; stroke-dasharray: 6 5; fill: none; marker-end: url(#arrow); }
+  .section { fill: #f8fafc; stroke: #cbd5e1; stroke-width: 1.2; rx: 18; }
+  .blue { fill: #dbeafe; stroke: #2563eb; }
+  .green { fill: #dcfce7; stroke: #16a34a; }
+  .yellow { fill: #fef3c7; stroke: #d97706; }
+  .purple { fill: #ede9fe; stroke: #7c3aed; }
+  .red { fill: #fee2e2; stroke: #dc2626; }
+  .cyan { fill: #cffafe; stroke: #0891b2; }
+  .gray { fill: #f1f5f9; stroke: #64748b; }
+  .dark { fill: #111827; stroke: #111827; }
+</style>
+<defs>
+  <marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto" markerUnits="strokeWidth">
+    <path d="M0,0 L0,6 L9,3 z" fill="#64748b" />
+  </marker>
+</defs>
+
+<rect width="100%" height="100%" fill="#ffffff"/>
+
+<text x="700" y="42" text-anchor="middle" class="title">Smart Cloud 整体运行时架构</text>
+<text x="700" y="68" text-anchor="middle" class="subtitle">模块化单体优先，保留网关、注册配置、RPC、MQ、任务、监控等微服务演进能力</text>
+<rect x="40" y="95" width="1320" height="150" class="section"/>
+
+<rect x="90" y="130" width="220" height="80" rx="12" class="cyan"/>
+<text x="200.0" y="156" text-anchor="middle" class="box-title">前端 / 外部系统</text>
+<text x="200.0" y="178" text-anchor="middle" class="box-text">Web / App / 第三方调用</text>
+
+
+<rect x="410" y="130" width="220" height="80" rx="12" class="blue"/>
+<text x="520.0" y="156" text-anchor="middle" class="box-title">develop-gateway</text>
+<text x="520.0" y="178" text-anchor="middle" class="box-text">Gateway / 路由 / 文档聚合</text>
+
+
+<rect x="730" y="130" width="220" height="80" rx="12" class="green"/>
+<text x="840.0" y="156" text-anchor="middle" class="box-title">develop-server</text>
+<text x="840.0" y="178" text-anchor="middle" class="box-text">后端主容器</text>
+<text x="840.0" y="196" text-anchor="middle" class="box-text">按依赖装配模块</text>
+
+<path d="M310,170 L410,170" class="line"/>
+<text x="360.0" y="164.0" text-anchor="middle" class="small">HTTP / WebSocket</text>
+<path d="M630,170 L730,170" class="line"/>
+<text x="680.0" y="164.0" text-anchor="middle" class="small">路由转发</text>
+<path d="M310,200 C470,270 640,270 730,200" class="dash"/>
+<text x="520" y="278" text-anchor="middle" class="small">本地开发可直连 develop-server</text>
+
+<rect x="40" y="300" width="1320" height="265" class="section"/>
+<text x="70" y="330" class="box-title">业务模块层</text>
+
+<rect x="80" y="360" width="150" height="58" rx="12" class="purple"/>
+<text x="155.0" y="386" text-anchor="middle" class="box-title">system</text>
+<text x="155.0" y="408" text-anchor="middle" class="box-text">系统管理</text>
+
+
+<rect x="250" y="360" width="150" height="58" rx="12" class="purple"/>
+<text x="325.0" y="386" text-anchor="middle" class="box-title">infra</text>
+<text x="325.0" y="408" text-anchor="middle" class="box-text">基础设施</text>
+
+
+<rect x="420" y="360" width="150" height="58" rx="12" class="gray"/>
+<text x="495.0" y="386" text-anchor="middle" class="box-title">member</text>
+<text x="495.0" y="408" text-anchor="middle" class="box-text">会员中心</text>
+
+
+<rect x="590" y="360" width="150" height="58" rx="12" class="gray"/>
+<text x="665.0" y="386" text-anchor="middle" class="box-title">bpm</text>
+<text x="665.0" y="408" text-anchor="middle" class="box-text">工作流</text>
+
+
+<rect x="760" y="360" width="150" height="58" rx="12" class="gray"/>
+<text x="835.0" y="386" text-anchor="middle" class="box-title">pay</text>
+<text x="835.0" y="408" text-anchor="middle" class="box-text">支付</text>
+
+
+<rect x="930" y="360" width="190" height="58" rx="12" class="gray"/>
+<text x="1025.0" y="386" text-anchor="middle" class="box-title">mall</text>
+<text x="1025.0" y="408" text-anchor="middle" class="box-text">product / promotion</text>
+<text x="1025.0" y="426" text-anchor="middle" class="box-text">trade / statistics</text>
+
+
+<rect x="1140" y="360" width="150" height="58" rx="12" class="gray"/>
+<text x="1215.0" y="386" text-anchor="middle" class="box-title">crm / erp</text>
+<text x="1215.0" y="408" text-anchor="middle" class="box-text">客户 / 企业资源</text>
+
+
+<rect x="80" y="455" width="150" height="58" rx="12" class="gray"/>
+<text x="155.0" y="481" text-anchor="middle" class="box-title">iot</text>
+<text x="155.0" y="503" text-anchor="middle" class="box-text">server / core / gateway</text>
+
+
+<rect x="250" y="455" width="150" height="58" rx="12" class="gray"/>
+<text x="325.0" y="481" text-anchor="middle" class="box-title">mes</text>
+<text x="325.0" y="503" text-anchor="middle" class="box-text">制造执行</text>
+
+
+<rect x="420" y="455" width="150" height="58" rx="12" class="gray"/>
+<text x="495.0" y="481" text-anchor="middle" class="box-title">wms</text>
+<text x="495.0" y="503" text-anchor="middle" class="box-text">仓储管理</text>
+
+
+<rect x="590" y="455" width="150" height="58" rx="12" class="gray"/>
+<text x="665.0" y="481" text-anchor="middle" class="box-title">ai</text>
+<text x="665.0" y="503" text-anchor="middle" class="box-text">大模型能力</text>
+
+
+<rect x="760" y="455" width="150" height="58" rx="12" class="gray"/>
+<text x="835.0" y="481" text-anchor="middle" class="box-title">mp</text>
+<text x="835.0" y="503" text-anchor="middle" class="box-text">微信公众号</text>
+
+
+<rect x="930" y="455" width="150" height="58" rx="12" class="gray"/>
+<text x="1005.0" y="481" text-anchor="middle" class="box-title">report</text>
+<text x="1005.0" y="503" text-anchor="middle" class="box-text">报表 BI</text>
+
+<path d="M840,210 L840,300" class="line"/>
+
+<rect x="40" y="615" width="1320" height="150" class="section"/>
+<text x="70" y="645" class="box-title">通用框架层 develop-framework</text>
+
+<rect x="80" y="670" width="130" height="58" rx="12" class="blue"/>
+<text x="145.0" y="696" text-anchor="middle" class="box-title">Web</text>
+<text x="145.0" y="718" text-anchor="middle" class="box-text">REST / OpenAPI</text>
+
+
+<rect x="230" y="670" width="130" height="58" rx="12" class="blue"/>
+<text x="295.0" y="696" text-anchor="middle" class="box-title">Security</text>
+<text x="295.0" y="718" text-anchor="middle" class="box-text">认证 / 授权</text>
+
+
+<rect x="380" y="670" width="130" height="58" rx="12" class="blue"/>
+<text x="445.0" y="696" text-anchor="middle" class="box-title">MyBatis</text>
+<text x="445.0" y="718" text-anchor="middle" class="box-text">ORM / 多数据源</text>
+
+
+<rect x="530" y="670" width="130" height="58" rx="12" class="blue"/>
+<text x="595.0" y="696" text-anchor="middle" class="box-title">Redis</text>
+<text x="595.0" y="718" text-anchor="middle" class="box-text">缓存 / 锁</text>
+
+
+<rect x="680" y="670" width="130" height="58" rx="12" class="blue"/>
+<text x="745.0" y="696" text-anchor="middle" class="box-title">MQ</text>
+<text x="745.0" y="718" text-anchor="middle" class="box-text">消息抽象</text>
+
+
+<rect x="830" y="670" width="130" height="58" rx="12" class="blue"/>
+<text x="895.0" y="696" text-anchor="middle" class="box-title">RPC</text>
+<text x="895.0" y="718" text-anchor="middle" class="box-text">Feign / API</text>
+
+
+<rect x="980" y="670" width="130" height="58" rx="12" class="blue"/>
+<text x="1045.0" y="696" text-anchor="middle" class="box-title">Job</text>
+<text x="1045.0" y="718" text-anchor="middle" class="box-text">XXL-Job</text>
+
+
+<rect x="1130" y="670" width="160" height="58" rx="12" class="blue"/>
+<text x="1210.0" y="696" text-anchor="middle" class="box-title">Governance</text>
+<text x="1210.0" y="718" text-anchor="middle" class="box-text">租户 / 数据权限 / 监控</text>
+
+<path d="M700,565 L700,615" class="line"/>
+
+<rect x="40" y="810" width="1320" height="90" class="section"/>
+<text x="70" y="840" class="box-title">基础设施与外部系统</text>
+
+<rect x="125" y="855" width="140" height="38" rx="12" class="yellow"/>
+<text x="195.0" y="881" text-anchor="middle" class="box-title">Database</text>
+
+
+
+<rect x="300" y="855" width="120" height="38" rx="12" class="yellow"/>
+<text x="360.0" y="881" text-anchor="middle" class="box-title">Redis</text>
+
+
+
+<rect x="455" y="855" width="120" height="38" rx="12" class="yellow"/>
+<text x="515.0" y="881" text-anchor="middle" class="box-title">Nacos</text>
+
+
+
+<rect x="610" y="855" width="180" height="38" rx="12" class="yellow"/>
+<text x="700.0" y="881" text-anchor="middle" class="box-title">MQ / Broker</text>
+
+
+
+<rect x="825" y="855" width="150" height="38" rx="12" class="yellow"/>
+<text x="900.0" y="881" text-anchor="middle" class="box-title">XXL-Job</text>
+
+
+
+<rect x="1010" y="855" width="160" height="38" rx="12" class="yellow"/>
+<text x="1090.0" y="881" text-anchor="middle" class="box-title">对象存储</text>
+
+
+
+<rect x="1205" y="855" width="120" height="38" rx="12" class="yellow"/>
+<text x="1265.0" y="881" text-anchor="middle" class="box-title">第三方</text>
+
+
+<path d="M700,765 L700,810" class="line"/>
+
+</svg>

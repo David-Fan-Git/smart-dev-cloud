@@ -1,0 +1,120 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1300" height="820" viewBox="0 0 1300 820">
+
+<style>
+  .title { font: 700 24px Arial, 'PingFang SC', 'Microsoft YaHei', sans-serif; fill: #111827; }
+  .subtitle { font: 500 14px Arial, 'PingFang SC', 'Microsoft YaHei', sans-serif; fill: #4b5563; }
+  .box-title { font: 700 15px Arial, 'PingFang SC', 'Microsoft YaHei', sans-serif; fill: #111827; }
+  .box-text { font: 12px Arial, 'PingFang SC', 'Microsoft YaHei', sans-serif; fill: #374151; }
+  .small { font: 11px Arial, 'PingFang SC', 'Microsoft YaHei', sans-serif; fill: #4b5563; }
+  .line { stroke: #64748b; stroke-width: 1.8; fill: none; marker-end: url(#arrow); }
+  .dash { stroke: #94a3b8; stroke-width: 1.6; stroke-dasharray: 6 5; fill: none; marker-end: url(#arrow); }
+  .section { fill: #f8fafc; stroke: #cbd5e1; stroke-width: 1.2; rx: 18; }
+  .blue { fill: #dbeafe; stroke: #2563eb; }
+  .green { fill: #dcfce7; stroke: #16a34a; }
+  .yellow { fill: #fef3c7; stroke: #d97706; }
+  .purple { fill: #ede9fe; stroke: #7c3aed; }
+  .red { fill: #fee2e2; stroke: #dc2626; }
+  .cyan { fill: #cffafe; stroke: #0891b2; }
+  .gray { fill: #f1f5f9; stroke: #64748b; }
+  .dark { fill: #111827; stroke: #111827; }
+</style>
+<defs>
+  <marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto" markerUnits="strokeWidth">
+    <path d="M0,0 L0,6 L9,3 z" fill="#64748b" />
+  </marker>
+</defs>
+
+<rect width="100%" height="100%" fill="#ffffff"/>
+
+<text x="650" y="42" text-anchor="middle" class="title">标准业务模块内部架构</text>
+<text x="650" y="68" text-anchor="middle" class="subtitle">api 暴露跨模块契约，server 承载入站适配、应用编排、领域模型、基础设施适配与旧三层迁移源</text>
+<rect x="60" y="105" width="330" height="250" class="section"/>
+<text x="85" y="138" class="box-title">develop-module-xxx-api</text>
+
+<rect x="105" y="165" width="230" height="55" rx="12" class="cyan"/>
+<text x="220.0" y="191" text-anchor="middle" class="box-title">DTO / Enum</text>
+<text x="220.0" y="213" text-anchor="middle" class="box-text">跨模块传输对象</text>
+
+
+<rect x="105" y="240" width="230" height="55" rx="12" class="cyan"/>
+<text x="220.0" y="266" text-anchor="middle" class="box-title">CommonApi / RPC API</text>
+<text x="220.0" y="288" text-anchor="middle" class="box-text">稳定调用契约</text>
+
+
+<rect x="460" y="105" width="780" height="650" class="section"/>
+<text x="485" y="138" class="box-title">develop-module-xxx-server</text>
+
+<rect x="500" y="165" width="200" height="62" rx="12" class="blue"/>
+<text x="600.0" y="191" text-anchor="middle" class="box-title">Controller</text>
+<text x="600.0" y="213" text-anchor="middle" class="box-text">admin / app</text>
+<text x="600.0" y="231" text-anchor="middle" class="box-text">参数校验 / 权限</text>
+
+
+<rect x="500" y="260" width="200" height="62" rx="12" class="green"/>
+<text x="600.0" y="286" text-anchor="middle" class="box-title">ApplicationService</text>
+<text x="600.0" y="308" text-anchor="middle" class="box-text">用例编排</text>
+<text x="600.0" y="326" text-anchor="middle" class="box-text">事务边界</text>
+
+
+<rect x="780" y="260" width="200" height="62" rx="12" class="gray"/>
+<text x="880.0" y="286" text-anchor="middle" class="box-title">ServiceImpl</text>
+<text x="880.0" y="308" text-anchor="middle" class="box-text">旧三层业务逻辑</text>
+<text x="880.0" y="326" text-anchor="middle" class="box-text">迁移来源</text>
+
+
+<rect x="500" y="370" width="200" height="70" rx="12" class="purple"/>
+<text x="600.0" y="396" text-anchor="middle" class="box-title">Domain</text>
+<text x="600.0" y="418" text-anchor="middle" class="box-text">聚合根 / 值对象</text>
+<text x="600.0" y="436" text-anchor="middle" class="box-text">领域服务 / 事件</text>
+
+
+<rect x="500" y="485" width="200" height="62" rx="12" class="purple"/>
+<text x="600.0" y="511" text-anchor="middle" class="box-title">Repository Port</text>
+<text x="600.0" y="533" text-anchor="middle" class="box-text">领域仓储接口</text>
+
+
+<rect x="780" y="485" width="200" height="62" rx="12" class="yellow"/>
+<text x="880.0" y="511" text-anchor="middle" class="box-title">Infrastructure</text>
+<text x="880.0" y="533" text-anchor="middle" class="box-text">仓储实现</text>
+<text x="880.0" y="551" text-anchor="middle" class="box-text">外部系统适配</text>
+
+
+<rect x="1010" y="485" width="170" height="62" rx="12" class="yellow"/>
+<text x="1095.0" y="511" text-anchor="middle" class="box-title">DAL</text>
+<text x="1095.0" y="533" text-anchor="middle" class="box-text">DO / Mapper</text>
+<text x="1095.0" y="551" text-anchor="middle" class="box-text">Redis Key</text>
+
+
+<rect x="780" y="165" width="200" height="62" rx="12" class="cyan"/>
+<text x="880.0" y="191" text-anchor="middle" class="box-title">Convert</text>
+<text x="880.0" y="213" text-anchor="middle" class="box-text">VO / DTO / DO</text>
+<text x="880.0" y="231" text-anchor="middle" class="box-text">Domain 转换</text>
+
+
+<rect x="1010" y="165" width="170" height="62" rx="12" class="red"/>
+<text x="1095.0" y="191" text-anchor="middle" class="box-title">MQ / Job</text>
+<text x="1095.0" y="213" text-anchor="middle" class="box-text">消息 / 定时任务</text>
+
+
+<path d="M335,268 L460,268" class="line"/>
+<text x="397.5" y="262.0" text-anchor="middle" class="small">依赖契约</text>
+<path d="M700,196 L780,196" class="line"/>
+
+<path d="M600,227 L600,260" class="line"/>
+
+<path d="M700,291 L780,291" class="line"/>
+<text x="740.0" y="285.0" text-anchor="middle" class="small">旧代码并存</text>
+<path d="M600,322 L600,370" class="line"/>
+
+<path d="M600,440 L600,485" class="line"/>
+
+<path d="M700,516 L780,516" class="line"/>
+
+<path d="M980,516 L1010,516" class="line"/>
+
+<path d="M880,227 L880,260" class="line"/>
+
+<path d="M980,196 L1010,196" class="line"/>
+
+
+</svg>

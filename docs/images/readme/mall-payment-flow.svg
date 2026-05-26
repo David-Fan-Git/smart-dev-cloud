@@ -1,0 +1,84 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="760" viewBox="0 0 1200 760">
+
+<style>
+  .title { font: 700 24px Arial, 'PingFang SC', 'Microsoft YaHei', sans-serif; fill: #111827; }
+  .subtitle { font: 500 14px Arial, 'PingFang SC', 'Microsoft YaHei', sans-serif; fill: #4b5563; }
+  .box-title { font: 700 15px Arial, 'PingFang SC', 'Microsoft YaHei', sans-serif; fill: #111827; }
+  .box-text { font: 12px Arial, 'PingFang SC', 'Microsoft YaHei', sans-serif; fill: #374151; }
+  .small { font: 11px Arial, 'PingFang SC', 'Microsoft YaHei', sans-serif; fill: #4b5563; }
+  .line { stroke: #64748b; stroke-width: 1.8; fill: none; marker-end: url(#arrow); }
+  .dash { stroke: #94a3b8; stroke-width: 1.6; stroke-dasharray: 6 5; fill: none; marker-end: url(#arrow); }
+  .section { fill: #f8fafc; stroke: #cbd5e1; stroke-width: 1.2; rx: 18; }
+  .blue { fill: #dbeafe; stroke: #2563eb; }
+  .green { fill: #dcfce7; stroke: #16a34a; }
+  .yellow { fill: #fef3c7; stroke: #d97706; }
+  .purple { fill: #ede9fe; stroke: #7c3aed; }
+  .red { fill: #fee2e2; stroke: #dc2626; }
+  .cyan { fill: #cffafe; stroke: #0891b2; }
+  .gray { fill: #f1f5f9; stroke: #64748b; }
+  .dark { fill: #111827; stroke: #111827; }
+</style>
+<defs>
+  <marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto" markerUnits="strokeWidth">
+    <path d="M0,0 L0,6 L9,3 z" fill="#64748b" />
+  </marker>
+</defs>
+
+<rect width="100%" height="100%" fill="#ffffff"/>
+
+<text x="600" y="42" text-anchor="middle" class="title">商城交易与支付协作链路</text>
+<text x="600" y="68" text-anchor="middle" class="subtitle">trade 作为交易主流程，协同 member、product、promotion、pay 完成下单、支付和状态回写</text>
+
+<rect x="70" y="160" width="160" height="60" rx="12" class="cyan"/>
+<text x="150.0" y="186" text-anchor="middle" class="box-title">member-api</text>
+<text x="150.0" y="208" text-anchor="middle" class="box-text">会员信息</text>
+
+
+<rect x="70" y="280" width="160" height="60" rx="12" class="cyan"/>
+<text x="150.0" y="306" text-anchor="middle" class="box-title">product-api</text>
+<text x="150.0" y="328" text-anchor="middle" class="box-text">商品 / 库存</text>
+
+
+<rect x="70" y="400" width="160" height="60" rx="12" class="cyan"/>
+<text x="150.0" y="426" text-anchor="middle" class="box-title">promotion-api</text>
+<text x="150.0" y="448" text-anchor="middle" class="box-text">优惠 / 活动</text>
+
+
+<rect x="380" y="270" width="210" height="90" rx="12" class="green"/>
+<text x="485.0" y="296" text-anchor="middle" class="box-title">trade-server</text>
+<text x="485.0" y="318" text-anchor="middle" class="box-text">购物车 / 结算</text>
+<text x="485.0" y="336" text-anchor="middle" class="box-text">订单 / 售后</text>
+<text x="485.0" y="354" text-anchor="middle" class="box-text">配送 / 分销</text>
+
+
+<rect x="740" y="270" width="190" height="90" rx="12" class="purple"/>
+<text x="835.0" y="296" text-anchor="middle" class="box-title">pay-server</text>
+<text x="835.0" y="318" text-anchor="middle" class="box-text">支付应用</text>
+<text x="835.0" y="336" text-anchor="middle" class="box-text">支付订单 / 退款</text>
+
+
+<rect x="1000" y="270" width="150" height="90" rx="12" class="yellow"/>
+<text x="1075.0" y="296" text-anchor="middle" class="box-title">支付渠道</text>
+<text x="1075.0" y="318" text-anchor="middle" class="box-text">支付宝 / 微信</text>
+
+
+<rect x="740" y="500" width="190" height="70" rx="12" class="red"/>
+<text x="835.0" y="526" text-anchor="middle" class="box-title">MQ</text>
+<text x="835.0" y="548" text-anchor="middle" class="box-text">支付成功消息</text>
+
+
+<path d="M230,190 L380,300" class="line"/>
+
+<path d="M230,310 L380,315" class="line"/>
+
+<path d="M230,430 L380,330" class="line"/>
+
+<path d="M590,315 L740,315" class="line"/>
+<text x="665.0" y="309.0" text-anchor="middle" class="small">创建支付单</text>
+<path d="M930,315 L1000,315" class="line"/>
+<text x="965.0" y="309.0" text-anchor="middle" class="small">渠道请求</text>
+<path d="M1075,360 C1075,470 840,470 840,500" class="line"/>
+<path d="M740,535 C570,610 470,470 470,360" class="line"/>
+<text x="590" y="610" text-anchor="middle" class="small">支付成功后更新交易订单状态</text>
+
+</svg>

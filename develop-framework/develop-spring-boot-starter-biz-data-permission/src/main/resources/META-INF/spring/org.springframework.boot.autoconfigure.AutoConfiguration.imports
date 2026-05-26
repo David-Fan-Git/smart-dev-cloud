@@ -1,0 +1,3 @@
+com.develop.mvp.pk.framework.datapermission.config.DevelopDataPermissionAutoConfiguration
+com.develop.mvp.pk.framework.datapermission.config.DevelopDeptDataPermissionAutoConfiguration
+com.develop.mvp.pk.framework.datapermission.config.DevelopDataPermissionRpcAutoConfiguration

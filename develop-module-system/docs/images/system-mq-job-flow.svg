@@ -1,0 +1,78 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1180" height="760" viewBox="0 0 1180 760">
+
+<style>
+  .bg { fill:#f8fafc; }
+  .title { font:700 26px Arial, 'Microsoft YaHei', sans-serif; fill:#0f172a; }
+  .subtitle { font:500 14px Arial, 'Microsoft YaHei', sans-serif; fill:#475569; }
+  .box-title { font:700 15px Arial, 'Microsoft YaHei', sans-serif; fill:#0f172a; }
+  .box-text { font:12px Arial, 'Microsoft YaHei', sans-serif; fill:#334155; }
+  .small { font:11px Arial, 'Microsoft YaHei', sans-serif; fill:#475569; }
+  .line { stroke:#64748b; stroke-width:1.8; fill:none; marker-end:url(#arrow); }
+  .dash { stroke:#94a3b8; stroke-width:1.5; stroke-dasharray:6 5; fill:none; marker-end:url(#arrow); }
+  .blue { fill:#dbeafe; stroke:#2563eb; }
+  .green { fill:#dcfce7; stroke:#16a34a; }
+  .yellow { fill:#fef9c3; stroke:#ca8a04; }
+  .purple { fill:#ede9fe; stroke:#7c3aed; }
+  .red { fill:#fee2e2; stroke:#dc2626; }
+  .cyan { fill:#cffafe; stroke:#0891b2; }
+  .orange { fill:#ffedd5; stroke:#ea580c; }
+  .gray { fill:#e2e8f0; stroke:#64748b; }
+  .white { fill:#ffffff; stroke:#cbd5e1; }
+</style>
+<defs>
+  <marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto" markerUnits="strokeWidth">
+    <path d="M0,0 L0,6 L9,3 z" fill="#64748b" />
+  </marker>
+</defs>
+
+<rect width="100%" height="100%" class="bg"/>
+
+<text x="590" y="42" text-anchor="middle" class="title">system 消息与定时任务链路</text>
+<text x="590" y="68" text-anchor="middle" class="subtitle">源码中包含邮件 / 短信 MQ 生产消费，以及 TokenCleanJob 等 XXL-Job 任务入口</text>
+<rect x="80" y="130" width="210" height="85" rx="12" class="green"/>
+<text x="185.0" y="154" text-anchor="middle" class="box-title">业务用例</text>
+<text x="185.0" y="177" text-anchor="middle" class="box-text">MailApplicationService</text>
+<text x="185.0" y="194" text-anchor="middle" class="box-text">SmsApplicationService</text>
+<text x="185.0" y="211" text-anchor="middle" class="box-text">OAuth2ApplicationService</text>
+<rect x="390" y="120" width="210" height="105" rx="12" class="blue"/>
+<text x="495.0" y="144" text-anchor="middle" class="box-title">消息生产者</text>
+<text x="495.0" y="167" text-anchor="middle" class="box-text">MailProducer</text>
+<text x="495.0" y="184" text-anchor="middle" class="box-text">SmsProducer</text>
+<text x="495.0" y="201" text-anchor="middle" class="box-text">发送 MailSendMessage</text>
+<text x="495.0" y="218" text-anchor="middle" class="box-text">发送 SmsSendMessage</text>
+<rect x="700" y="130" width="180" height="85" rx="12" class="cyan"/>
+<text x="790.0" y="154" text-anchor="middle" class="box-title">MQ Starter</text>
+<text x="790.0" y="177" text-anchor="middle" class="box-text">Redis/RabbitMQ</text>
+<text x="790.0" y="194" text-anchor="middle" class="box-text">RocketMQ/Kafka 抽象</text>
+<rect x="960" y="120" width="160" height="105" rx="12" class="yellow"/>
+<text x="1040.0" y="144" text-anchor="middle" class="box-title">消费者</text>
+<text x="1040.0" y="167" text-anchor="middle" class="box-text">MailSendConsumer</text>
+<text x="1040.0" y="184" text-anchor="middle" class="box-text">SmsSendConsumer</text>
+<text x="1040.0" y="201" text-anchor="middle" class="box-text">执行发送动作</text>
+<path d="M290,172 L390,172" class="line"/>
+<path d="M600,172 L700,172" class="line"/>
+<path d="M880,172 L960,172" class="line"/>
+<rect x="80" y="390" width="210" height="85" rx="12" class="purple"/>
+<text x="185.0" y="414" text-anchor="middle" class="box-title">XXL-Job 调度</text>
+<text x="185.0" y="437" text-anchor="middle" class="box-text">Job Starter</text>
+<text x="185.0" y="454" text-anchor="middle" class="box-text">外部调度中心触发</text>
+<rect x="390" y="390" width="210" height="85" rx="12" class="orange"/>
+<text x="495.0" y="414" text-anchor="middle" class="box-title">TokenCleanJob</text>
+<text x="495.0" y="437" text-anchor="middle" class="box-text">清理 OAuth2 Token</text>
+<text x="495.0" y="454" text-anchor="middle" class="box-text">维护认证数据</text>
+<rect x="700" y="390" width="180" height="85" rx="12" class="orange"/>
+<text x="790.0" y="414" text-anchor="middle" class="box-title">DAL / Redis</text>
+<text x="790.0" y="437" text-anchor="middle" class="box-text">OAuth2 Token 表</text>
+<text x="790.0" y="454" text-anchor="middle" class="box-text">Redis 缓存组件</text>
+<rect x="960" y="390" width="160" height="85" rx="12" class="white"/>
+<text x="1040.0" y="414" text-anchor="middle" class="box-title">系统状态</text>
+<text x="1040.0" y="437" text-anchor="middle" class="box-text">令牌数据收敛</text>
+<text x="1040.0" y="454" text-anchor="middle" class="box-text">降低历史数据堆积</text>
+<path d="M290,432 L390,432" class="line"/>
+<path d="M600,432 L700,432" class="line"/>
+<path d="M880,432 L960,432" class="line"/>
+<rect x="190" y="620" width="800" height="55" rx="12" class="red"/>
+<text x="590.0" y="644" text-anchor="middle" class="box-title">设计边界</text>
+<text x="590.0" y="667" text-anchor="middle" class="box-text">消息消费者与 Job 是技术入口，核心规则仍应进入 Application / Domain，不应在入口层堆叠业务规则</text>
+
+</svg>

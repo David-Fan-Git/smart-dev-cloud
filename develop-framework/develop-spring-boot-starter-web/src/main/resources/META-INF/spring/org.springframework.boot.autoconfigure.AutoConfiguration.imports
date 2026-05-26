@@ -1,0 +1,8 @@
+com.develop.mvp.pk.framework.apilog.config.DevelopApiLogAutoConfiguration
+com.develop.mvp.pk.framework.jackson.config.DevelopJacksonAutoConfiguration
+com.develop.mvp.pk.framework.swagger.config.DevelopSwaggerAutoConfiguration
+com.develop.mvp.pk.framework.web.config.DevelopWebAutoConfiguration
+com.develop.mvp.pk.framework.apilog.config.DevelopApiLogRpcAutoConfiguration
+com.develop.mvp.pk.framework.xss.config.DevelopXssAutoConfiguration
+com.develop.mvp.pk.framework.banner.config.DevelopBannerAutoConfiguration
+com.develop.mvp.pk.framework.encrypt.config.DevelopApiEncryptAutoConfiguration

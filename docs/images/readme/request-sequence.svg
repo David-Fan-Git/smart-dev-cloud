@@ -1,0 +1,86 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1300" height="760" viewBox="0 0 1300 760">
+
+<style>
+  .title { font: 700 24px Arial, 'PingFang SC', 'Microsoft YaHei', sans-serif; fill: #111827; }
+  .subtitle { font: 500 14px Arial, 'PingFang SC', 'Microsoft YaHei', sans-serif; fill: #4b5563; }
+  .box-title { font: 700 15px Arial, 'PingFang SC', 'Microsoft YaHei', sans-serif; fill: #111827; }
+  .box-text { font: 12px Arial, 'PingFang SC', 'Microsoft YaHei', sans-serif; fill: #374151; }
+  .small { font: 11px Arial, 'PingFang SC', 'Microsoft YaHei', sans-serif; fill: #4b5563; }
+  .line { stroke: #64748b; stroke-width: 1.8; fill: none; marker-end: url(#arrow); }
+  .dash { stroke: #94a3b8; stroke-width: 1.6; stroke-dasharray: 6 5; fill: none; marker-end: url(#arrow); }
+  .section { fill: #f8fafc; stroke: #cbd5e1; stroke-width: 1.2; rx: 18; }
+  .blue { fill: #dbeafe; stroke: #2563eb; }
+  .green { fill: #dcfce7; stroke: #16a34a; }
+  .yellow { fill: #fef3c7; stroke: #d97706; }
+  .purple { fill: #ede9fe; stroke: #7c3aed; }
+  .red { fill: #fee2e2; stroke: #dc2626; }
+  .cyan { fill: #cffafe; stroke: #0891b2; }
+  .gray { fill: #f1f5f9; stroke: #64748b; }
+  .dark { fill: #111827; stroke: #111827; }
+</style>
+<defs>
+  <marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto" markerUnits="strokeWidth">
+    <path d="M0,0 L0,6 L9,3 z" fill="#64748b" />
+  </marker>
+</defs>
+
+<rect width="100%" height="100%" fill="#ffffff"/>
+
+<text x="650" y="42" text-anchor="middle" class="title">后台管理接口请求时序</text>
+<text x="650" y="68" text-anchor="middle" class="subtitle">展示从前端请求、网关转发、鉴权、业务编排、持久化到统一响应的完整链路</text>
+
+<rect x="65" y="110" width="130" height="55" rx="12" class="cyan"/>
+<text x="130.0" y="136" text-anchor="middle" class="box-title">Client</text>
+<text x="130.0" y="158" text-anchor="middle" class="box-text">前端</text>
+
+
+<rect x="245" y="110" width="150" height="55" rx="12" class="blue"/>
+<text x="320.0" y="136" text-anchor="middle" class="box-title">Gateway</text>
+<text x="320.0" y="158" text-anchor="middle" class="box-text">路由</text>
+
+
+<rect x="445" y="110" width="150" height="55" rx="12" class="blue"/>
+<text x="520.0" y="136" text-anchor="middle" class="box-title">Controller</text>
+<text x="520.0" y="158" text-anchor="middle" class="box-text">HTTP 入口</text>
+
+
+<rect x="645" y="110" width="150" height="55" rx="12" class="purple"/>
+<text x="720.0" y="136" text-anchor="middle" class="box-title">Security</text>
+<text x="720.0" y="158" text-anchor="middle" class="box-text">鉴权 / 租户</text>
+
+
+<rect x="845" y="110" width="150" height="55" rx="12" class="green"/>
+<text x="920.0" y="136" text-anchor="middle" class="box-title">Service</text>
+<text x="920.0" y="158" text-anchor="middle" class="box-text">用例编排</text>
+
+
+<rect x="1045" y="110" width="150" height="55" rx="12" class="yellow"/>
+<text x="1120.0" y="136" text-anchor="middle" class="box-title">Repository</text>
+<text x="1120.0" y="158" text-anchor="middle" class="box-text">持久化</text>
+
+
+<path d="M130,165 L130,690" stroke="#cbd5e1" stroke-width="1"/>
+<path d="M320,165 L320,690" stroke="#cbd5e1" stroke-width="1"/>
+<path d="M520,165 L520,690" stroke="#cbd5e1" stroke-width="1"/>
+<path d="M720,165 L720,690" stroke="#cbd5e1" stroke-width="1"/>
+<path d="M920,165 L920,690" stroke="#cbd5e1" stroke-width="1"/>
+<path d="M1120,165 L1120,690" stroke="#cbd5e1" stroke-width="1"/>
+
+<path d="M130,220 L320,220" class="line"/>
+<text x="225.0" y="210" text-anchor="middle" class="small">1 HTTP 请求</text>
+<path d="M320,285 L520,285" class="line"/>
+<text x="420.0" y="275" text-anchor="middle" class="small">2 Path 路由</text>
+<path d="M520,350 L720,350" class="line"/>
+<text x="620.0" y="340" text-anchor="middle" class="small">3 Token / 权限 / 租户</text>
+<path d="M720,415 L920,415" class="line"/>
+<text x="820.0" y="405" text-anchor="middle" class="small">4 放行并注入上下文</text>
+<path d="M920,480 L1120,480" class="line"/>
+<text x="1020.0" y="470" text-anchor="middle" class="small">5 查询 / 保存</text>
+<path d="M1120,545 L920,545" class="line"/>
+<text x="1020" y="535" text-anchor="middle" class="small">6 返回 DO / Domain</text>
+<path d="M920,610 L520,610" class="line"/>
+<text x="720" y="600" text-anchor="middle" class="small">7 Convert 为 VO / DTO</text>
+<path d="M520,675 L130,675" class="line"/>
+<text x="325" y="665" text-anchor="middle" class="small">8 CommonResult 响应</text>
+
+</svg>

@@ -1,0 +1,86 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1180" height="760" viewBox="0 0 1180 760">
+
+<style>
+  .bg { fill:#f8fafc; }
+  .title { font:700 26px Arial, 'Microsoft YaHei', sans-serif; fill:#0f172a; }
+  .subtitle { font:500 14px Arial, 'Microsoft YaHei', sans-serif; fill:#475569; }
+  .box-title { font:700 15px Arial, 'Microsoft YaHei', sans-serif; fill:#0f172a; }
+  .box-text { font:12px Arial, 'Microsoft YaHei', sans-serif; fill:#334155; }
+  .small { font:11px Arial, 'Microsoft YaHei', sans-serif; fill:#475569; }
+  .line { stroke:#64748b; stroke-width:1.8; fill:none; marker-end:url(#arrow); }
+  .dash { stroke:#94a3b8; stroke-width:1.5; stroke-dasharray:6 5; fill:none; marker-end:url(#arrow); }
+  .blue { fill:#dbeafe; stroke:#2563eb; }
+  .green { fill:#dcfce7; stroke:#16a34a; }
+  .yellow { fill:#fef9c3; stroke:#ca8a04; }
+  .purple { fill:#ede9fe; stroke:#7c3aed; }
+  .red { fill:#fee2e2; stroke:#dc2626; }
+  .cyan { fill:#cffafe; stroke:#0891b2; }
+  .orange { fill:#ffedd5; stroke:#ea580c; }
+  .gray { fill:#e2e8f0; stroke:#64748b; }
+  .white { fill:#ffffff; stroke:#cbd5e1; }
+</style>
+<defs>
+  <marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto" markerUnits="strokeWidth">
+    <path d="M0,0 L0,6 L9,3 z" fill="#64748b" />
+  </marker>
+</defs>
+
+<rect width="100%" height="100%" class="bg"/>
+
+<text x="590" y="42" text-anchor="middle" class="title">infra 模块组件调用关系</text>
+<text x="590" y="68" text-anchor="middle" class="subtitle">基于 develop-module-infra-server POM 与源码目录归纳的组件依赖视图</text>
+<rect x="60" y="120" width="210" height="90" rx="12" class="blue"/>
+<text x="165.0" y="144" text-anchor="middle" class="box-title">Web 与安全</text>
+<text x="165.0" y="167" text-anchor="middle" class="box-text">Security Starter</text>
+<text x="165.0" y="184" text-anchor="middle" class="box-text">WebSocket Starter</text>
+<text x="165.0" y="201" text-anchor="middle" class="box-text">Tenant Starter</text>
+<rect x="335" y="120" width="210" height="90" rx="12" class="green"/>
+<text x="440.0" y="144" text-anchor="middle" class="box-title">数据与缓存</text>
+<text x="440.0" y="167" text-anchor="middle" class="box-text">MyBatis Starter</text>
+<text x="440.0" y="184" text-anchor="middle" class="box-text">Redis Starter</text>
+<text x="440.0" y="201" text-anchor="middle" class="box-text">MyBatis Generator</text>
+<rect x="610" y="120" width="210" height="90" rx="12" class="purple"/>
+<text x="715.0" y="144" text-anchor="middle" class="box-title">服务治理</text>
+<text x="715.0" y="167" text-anchor="middle" class="box-text">RPC Starter</text>
+<text x="715.0" y="184" text-anchor="middle" class="box-text">Nacos Discovery</text>
+<text x="715.0" y="201" text-anchor="middle" class="box-text">Nacos Config</text>
+<rect x="885" y="120" width="210" height="90" rx="12" class="cyan"/>
+<text x="990.0" y="144" text-anchor="middle" class="box-title">任务与消息</text>
+<text x="990.0" y="167" text-anchor="middle" class="box-text">Job Starter</text>
+<text x="990.0" y="184" text-anchor="middle" class="box-text">MQ Starter</text>
+<text x="990.0" y="201" text-anchor="middle" class="box-text">日志清理 Job</text>
+<rect x="60" y="310" width="210" height="90" rx="12" class="orange"/>
+<text x="165.0" y="334" text-anchor="middle" class="box-title">文件客户端</text>
+<text x="165.0" y="357" text-anchor="middle" class="box-text">commons-net FTP</text>
+<text x="165.0" y="374" text-anchor="middle" class="box-text">JSch SFTP</text>
+<text x="165.0" y="391" text-anchor="middle" class="box-text">AWS S3 SDK</text>
+<text x="165.0" y="408" text-anchor="middle" class="box-text">Tika 文件识别</text>
+<rect x="335" y="310" width="210" height="90" rx="12" class="yellow"/>
+<text x="440.0" y="334" text-anchor="middle" class="box-title">研发工具</text>
+<text x="440.0" y="357" text-anchor="middle" class="box-text">Velocity 模板</text>
+<text x="440.0" y="374" text-anchor="middle" class="box-text">代码生成 Demo</text>
+<text x="440.0" y="391" text-anchor="middle" class="box-text">数据源配置</text>
+<rect x="610" y="310" width="210" height="90" rx="12" class="yellow"/>
+<text x="715.0" y="334" text-anchor="middle" class="box-title">监控与日志</text>
+<text x="715.0" y="357" text-anchor="middle" class="box-text">Monitor Starter</text>
+<text x="715.0" y="374" text-anchor="middle" class="box-text">ApiAccessLog</text>
+<text x="715.0" y="391" text-anchor="middle" class="box-text">ApiErrorLog</text>
+<rect x="885" y="310" width="210" height="90" rx="12" class="cyan"/>
+<text x="990.0" y="334" text-anchor="middle" class="box-title">跨模块 API</text>
+<text x="990.0" y="357" text-anchor="middle" class="box-text">ConfigApi</text>
+<text x="990.0" y="374" text-anchor="middle" class="box-text">FileApi</text>
+<text x="990.0" y="391" text-anchor="middle" class="box-text">WebSocketSenderApi</text>
+<rect x="230" y="540" width="720" height="105" rx="12" class="white"/>
+<text x="590.0" y="564" text-anchor="middle" class="box-title">develop-module-infra-server</text>
+<text x="590.0" y="587" text-anchor="middle" class="box-text">配置管理、文件管理、数据源管理、API 日志、Redis 管理、WebSocket、研发 Demo / 代码生成支撑</text>
+<text x="590.0" y="604" text-anchor="middle" class="box-text">为 system 和其它业务模块提供配置、文件、WebSocket 等基础能力</text>
+<path d="M165,210 L470,540" class="line"/>
+<path d="M440,210 L530,540" class="line"/>
+<path d="M715,210 L600,540" class="line"/>
+<path d="M990,210 L675,540" class="line"/>
+<path d="M165,400 L520,540" class="line"/>
+<path d="M440,400 L575,540" class="line"/>
+<path d="M715,400 L645,540" class="line"/>
+<path d="M990,400 L735,540" class="line"/>
+
+</svg>
