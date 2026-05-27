@@ -221,6 +221,14 @@ public class OAuth2OpenControllerTest extends BaseMockitoUnitTest {
                 new ErrorCode(400, "response_type 参数值只允许 code 和 token"));
     }
 
+    @Test
+    public void testApproveOrDeny_scopeInvalid() {
+        // 调用，并断言
+        assertServiceException(() -> oauth2OpenController.approveOrDeny("code", randomString(),
+                        randomString(), randomString(), true, randomString()),
+                new ErrorCode(400, "scope 参数格式错误"));
+    }
+
     @Test // autoApprove = true，但是不通过
     public void testApproveOrDeny_autoApproveNo() {
         // 准备参数

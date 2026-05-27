@@ -19,6 +19,7 @@ import com.develop.mvp.pk.module.system.framework.sms.core.property.SmsChannelPr
 import lombok.extern.slf4j.Slf4j;
 
 import java.nio.charset.StandardCharsets;
+import java.time.DateTimeException;
 import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
@@ -163,15 +164,19 @@ public class HuaweiSmsClient extends AbstractSmsClient {
     @Override
     public List<SmsReceiveRespDTO> parseSmsReceiveStatus(String requestBody) {
         Map<String, String> params = HttpUtil.decodeParamMap(requestBody, StandardCharsets.UTF_8);
-        // 字段参考 https://support.huaweicloud.com/api-msgsms/sms_05_0003.html
-        return ListUtil.of(new SmsReceiveRespDTO()
-                .setSuccess("DELIVRD".equals(params.get("status"))) // 是否接收成功
-                .setErrorCode(params.get("status")) // 状态报告编码
-                .setErrorMsg(params.get("statusDesc"))
-                .setMobile(params.get("to")) // 手机号
-                .setReceiveTime(LocalDateTime.ofInstant(Instant.parse(params.get("updateTime")), ZoneId.of("UTC"))) // 状态报告时间
-                .setSerialNo(params.get("smsMsgId")) // 发送序列号
-                .setLogId(Long.valueOf(params.get("extend")))); // 用户序列号
+        try {
+            // 字段参考 https://support.huaweicloud.com/api-msgsms/sms_05_0003.html
+            return ListUtil.of(new SmsReceiveRespDTO()
+                    .setSuccess("DELIVRD".equals(params.get("status"))) // 是否接收成功
+                    .setErrorCode(params.get("status")) // 状态报告编码
+                    .setErrorMsg(params.get("statusDesc"))
+                    .setMobile(params.get("to")) // 手机号
+                    .setReceiveTime(LocalDateTime.ofInstant(Instant.parse(params.get("updateTime")), ZoneId.of("UTC"))) // 状态报告时间
+                    .setSerialNo(params.get("smsMsgId")) // 发送序列号
+                    .setLogId(Long.valueOf(params.get("extend")))); // 用户序列号
+        } catch (DateTimeException | NumberFormatException | NullPointerException ex) {
+            throw new IllegalArgumentException("华为短信回调参数格式错误", ex);
+        }
     }
 
     /**

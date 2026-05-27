@@ -136,6 +136,12 @@
             <optional>true</optional>
         </dependency>
 
+        <dependency>
+            <groupId>com.develop.mvp</groupId>
+            <artifactId>develop-spring-boot-starter-test</artifactId>
+            <scope>test</scope>
+        </dependency>
+
         <!-- 服务保障相关 -->
         <dependency>
             <groupId>com.develop.mvp</groupId>

@@ -11,7 +11,7 @@ import org.springframework.stereotype.Component;
 /**
  * Spring Domain Event Publisher 类。
  */
-@Component
+@Component("systemDomainEventPublisher")
 public class SpringDomainEventPublisher implements DomainEventPublisher {
 
     private final ApplicationEventPublisher springPublisher;

@@ -1,6 +1,7 @@
 package com.develop.mvp.pk.module.infra.application.file;
 
 import cn.hutool.core.io.resource.ResourceUtil;
+import com.develop.mvp.pk.framework.common.exception.ServiceException;
 import com.develop.mvp.pk.framework.common.pojo.PageResult;
 import com.develop.mvp.pk.framework.common.util.http.HttpUtils;
 import com.develop.mvp.pk.module.infra.application.file.port.outbound.FileStoragePort;
@@ -57,6 +58,17 @@ class FileApplicationServiceTest {
         assertTrue(saved.path().matches("\\d{8}/6318848e882d8a7e7e82789d87608f684ee52d41966bfc8cad3ce15aad2b970e\\.jpg"));
         assertEquals(saved.path(), storagePort.uploadPath);
         assertEquals("image/jpeg", storagePort.uploadType);
+    }
+
+    @Test
+    void createFile_storageFailureThrowsServiceException() {
+        storagePort.failUpload = true;
+
+        ServiceException exception = assertThrows(ServiceException.class,
+                () -> applicationService.createFile(new byte[]{1}, "a.txt", null, "text/plain"));
+
+        assertEquals(1_001_003_003, exception.getCode());
+        assertEquals("文件上传失败", exception.getMessage());
     }
 
     @Test
@@ -130,6 +142,7 @@ class FileApplicationServiceTest {
         private String uploadPath;
         private String uploadType;
         private byte[] content;
+        private boolean failUpload;
         private String failDeletePath;
         private String presignGetResourceUrl;
         private Integer presignGetExpirationSeconds;
@@ -150,6 +163,9 @@ class FileApplicationServiceTest {
         public UploadResult uploadToMaster(byte[] content, String path, String type) {
             this.uploadPath = path;
             this.uploadType = type;
+            if (failUpload) {
+                throw new IllegalStateException("upload failed");
+            }
             return new UploadResult(10L, uploadUrl);
         }
 

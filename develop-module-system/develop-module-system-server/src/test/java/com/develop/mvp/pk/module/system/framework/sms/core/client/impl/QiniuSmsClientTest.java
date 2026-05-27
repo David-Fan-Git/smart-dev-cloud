@@ -101,6 +101,11 @@ public class QiniuSmsClientTest extends BaseMockitoUnitTest {
     }
 
     @Test
+    public void testParseSmsReceiveStatus_invalidText() {
+        assertThrows(IllegalArgumentException.class, () -> smsClient.parseSmsReceiveStatus("invalid"));
+    }
+
+    @Test
     public void testParseSmsReceiveStatus() {
         // 准备参数
         String text = "{\"items\":[{\"mobile\":\"18881234567\",\"message_id\":\"10135515063508004167\",\"status\":\"DELIVRD\",\"delivrd_at\":1724591666,\"error\":\"DELIVRD\",\"seq\":\"123\"}]}";

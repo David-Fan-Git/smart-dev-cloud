@@ -8,9 +8,11 @@ import com.develop.mvp.pk.module.system.domain.module.repository.SystemModuleRep
 import com.develop.mvp.pk.module.system.domain.module.service.ModuleDependencyResolver;
 import com.develop.mvp.pk.module.system.domain.module.valueobject.ModuleDependency;
 import com.develop.mvp.pk.module.system.infrastructure.module.messaging.MicrometerModuleMetricsAdapter;
+import com.develop.mvp.pk.module.system.infrastructure.module.messaging.NoOpModuleMetricsAdapter;
 import com.develop.mvp.pk.module.system.infrastructure.module.messaging.SpringModuleEventPublisher;
 import com.develop.mvp.pk.module.system.infrastructure.module.persistence.InMemorySystemModuleRepository;
 import io.micrometer.core.instrument.MeterRegistry;
+import org.springframework.beans.factory.ObjectProvider;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.ApplicationEventPublisher;
@@ -38,8 +40,9 @@ public class SystemModuleConfiguration {
     }
 
     @Bean
-    public ModuleMetricsPort moduleMetricsPort(MeterRegistry meterRegistry) {
-        return new MicrometerModuleMetricsAdapter(meterRegistry);
+    public ModuleMetricsPort moduleMetricsPort(ObjectProvider<MeterRegistry> meterRegistry) {
+        MeterRegistry registry = meterRegistry.getIfAvailable();
+        return registry != null ? new MicrometerModuleMetricsAdapter(registry) : new NoOpModuleMetricsAdapter();
     }
 
     @Bean
