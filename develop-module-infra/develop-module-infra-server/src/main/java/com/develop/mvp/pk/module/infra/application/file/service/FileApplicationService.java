@@ -29,6 +29,7 @@ import java.util.List;
 import static cn.hutool.core.date.DatePattern.PURE_DATE_PATTERN;
 import static com.develop.mvp.pk.framework.common.exception.util.ServiceExceptionUtil.exception;
 import static com.develop.mvp.pk.module.infra.enums.ErrorCodeConstants.FILE_NOT_EXISTS;
+import static com.develop.mvp.pk.module.infra.enums.ErrorCodeConstants.FILE_UPLOAD_FAIL;
 
 @Service
 public class FileApplicationService implements FileUseCase {
@@ -76,7 +77,12 @@ public class FileApplicationService implements FileUseCase {
 
         // 生成 path 并上传
         String path = generateUploadPath(name, directory);
-        FileStoragePort.UploadResult uploadResult = fileStoragePort.uploadToMaster(content, path, type);
+        FileStoragePort.UploadResult uploadResult;
+        try {
+            uploadResult = fileStoragePort.uploadToMaster(content, path, type);
+        } catch (Exception ex) {
+            throw exception(FILE_UPLOAD_FAIL);
+        }
 
         // 创建领域对象并保存
         File file = FileFactory.create(uploadResult.configId(), name, path, uploadResult.url(), type, (long) content.length);

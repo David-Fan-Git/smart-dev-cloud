@@ -64,6 +64,7 @@ import me.chanjar.weixin.mp.api.WxMpService;
 import me.chanjar.weixin.mp.api.impl.WxMpServiceImpl;
 import me.chanjar.weixin.mp.config.impl.WxMpRedisConfigImpl;
 import me.zhyd.oauth.config.AuthConfig;
+import me.zhyd.oauth.exception.AuthException;
 import me.zhyd.oauth.model.AuthCallback;
 import me.zhyd.oauth.model.AuthResponse;
 import me.zhyd.oauth.model.AuthUser;
@@ -232,7 +233,16 @@ public class SocialApplicationService implements SocialUseCase {
      */
     @VisibleForTesting
     public AuthRequest buildAuthRequest(Integer socialType, Integer userType) {
-        AuthRequest request = authRequestFactory.get(SocialTypeEnum.valueOfType(socialType).getSource());
+        SocialTypeEnum socialTypeEnum = SocialTypeEnum.valueOfType(socialType);
+        if (socialTypeEnum == null) {
+            throw exception(SOCIAL_USER_AUTH_FAILURE, String.format("社交平台(%d) 不存在", socialType));
+        }
+        AuthRequest request;
+        try {
+            request = authRequestFactory.get(socialTypeEnum.getSource());
+        } catch (AuthException ex) {
+            throw exception(SOCIAL_USER_AUTH_FAILURE, ex.getMessage());
+        }
         Assert.notNull(request, String.format("社交平台(%d) 不存在", socialType));
         SocialClientDO client = socialClientMapper.selectBySocialTypeAndUserType(socialType, userType);
         if (client != null && Objects.equals(client.getStatus(), CommonStatusEnum.ENABLE.getStatus())) {

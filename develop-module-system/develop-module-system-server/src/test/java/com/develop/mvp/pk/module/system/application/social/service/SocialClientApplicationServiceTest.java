@@ -26,6 +26,8 @@ import me.chanjar.weixin.common.error.WxError;
 import me.chanjar.weixin.common.error.WxErrorException;
 import me.chanjar.weixin.mp.api.WxMpService;
 import me.zhyd.oauth.config.AuthConfig;
+import me.zhyd.oauth.enums.AuthResponseStatus;
+import me.zhyd.oauth.exception.AuthException;
 import me.zhyd.oauth.model.AuthResponse;
 import me.zhyd.oauth.model.AuthUser;
 import me.zhyd.oauth.request.AuthDefaultRequest;
@@ -143,6 +145,20 @@ public class SocialClientApplicationServiceTest extends BaseDbUnitTest {
         assertServiceException(
                 () -> socialClientService.getAuthUser(socialType, userType, code, state),
                 SOCIAL_USER_AUTH_FAILURE, "模拟失败");
+    }
+
+    @Test
+    public void testBuildAuthRequest_socialTypeInvalid() {
+        assertServiceException(() -> socialClientService.buildAuthRequest(1, UserTypeEnum.ADMIN.getValue()),
+                SOCIAL_USER_AUTH_FAILURE, "社交平台(1) 不存在");
+    }
+
+    @Test
+    public void testBuildAuthRequest_authSourceUnsupported() {
+        when(authRequestFactory.get(eq("GITEE"))).thenThrow(new AuthException(AuthResponseStatus.UNSUPPORTED));
+
+        assertServiceException(() -> socialClientService.buildAuthRequest(SocialTypeEnum.GITEE.getType(), UserTypeEnum.ADMIN.getValue()),
+                SOCIAL_USER_AUTH_FAILURE, "Unsupported operation");
     }
 
     @Test

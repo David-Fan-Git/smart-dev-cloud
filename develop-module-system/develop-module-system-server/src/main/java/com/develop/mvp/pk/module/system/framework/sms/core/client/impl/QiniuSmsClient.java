@@ -7,6 +7,7 @@ import cn.hutool.core.lang.Assert;
 import cn.hutool.core.util.ObjectUtil;
 import cn.hutool.crypto.SecureUtil;
 import cn.hutool.crypto.digest.HmacAlgorithm;
+import cn.hutool.json.JSONException;
 import cn.hutool.json.JSONObject;
 import cn.hutool.json.JSONUtil;
 import com.develop.mvp.pk.framework.common.core.KeyValue;
@@ -138,7 +139,12 @@ public class QiniuSmsClient extends AbstractSmsClient {
      */
     @Override
     public List<SmsReceiveRespDTO> parseSmsReceiveStatus(String text) {
-        JSONObject status = JSONUtil.parseObj(text);
+        JSONObject status;
+        try {
+            status = JSONUtil.parseObj(text);
+        } catch (JSONException ex) {
+            throw new IllegalArgumentException("七牛短信回调参数格式错误", ex);
+        }
         // 字段参考 https://developer.qiniu.com/sms/5910/message-push
         return convertList(status.getJSONArray("items"), new Function<Object, SmsReceiveRespDTO>() {
 

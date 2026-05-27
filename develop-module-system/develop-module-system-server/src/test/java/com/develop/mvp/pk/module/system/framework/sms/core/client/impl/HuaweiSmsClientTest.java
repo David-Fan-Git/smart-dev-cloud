@@ -109,6 +109,11 @@ public class HuaweiSmsClientTest extends BaseMockitoUnitTest {
     }
 
     @Test
+    public void testParseSmsReceiveStatus_invalidText() {
+        assertThrows(IllegalArgumentException.class, () -> smsClient.parseSmsReceiveStatus("invalid"));
+    }
+
+    @Test
     public void testParseSmsReceiveStatus() {
         // 准备参数
         String text = "sequence=1&total=1&statusDesc=%E7%94%A8%E6%88%B7%E5%B7%B2%E6%88%90%E5%8A%9F%E6%94%B6%E5%88%B0%E7%9F%AD%E4%BF%A1&updateTime=2024-08-15T03%3A00%3A34Z&source=2&smsMsgId=70207ed7-1d02-41b0-8537-bb25fd1c2364_143684459&status=DELIVRD&extend=176";

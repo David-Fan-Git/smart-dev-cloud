@@ -100,8 +100,9 @@ public class AuthRequestFactory {
         AuthRequest authRequest = getDefaultRequest(source);
 
         // 如果获取不到则尝试取自定义的
-        if (authRequest == null) {
-            authRequest = getExtendRequest(properties.getExtend().getEnumClass(), source);
+        ExtendProperties extend = properties.getExtend();
+        if (authRequest == null && extend != null) {
+            authRequest = getExtendRequest(extend.getEnumClass(), source);
         }
 
         if (authRequest == null) {

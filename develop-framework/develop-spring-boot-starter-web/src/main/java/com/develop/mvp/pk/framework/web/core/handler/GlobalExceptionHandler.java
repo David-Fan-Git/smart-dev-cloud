@@ -15,6 +15,7 @@ import com.develop.mvp.pk.framework.common.util.json.JsonUtils;
 import com.develop.mvp.pk.framework.common.util.monitor.TracerUtils;
 import com.develop.mvp.pk.framework.common.util.servlet.ServletUtils;
 import com.develop.mvp.pk.framework.web.core.util.WebFrameworkUtils;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.exc.InvalidFormatException;
 import com.google.common.util.concurrent.UncheckedExecutionException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -37,6 +38,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
 import org.springframework.web.multipart.MaxUploadSizeExceededException;
+import org.springframework.web.multipart.MultipartException;
 import org.springframework.web.servlet.NoHandlerFoundException;
 import org.springframework.web.servlet.resource.NoResourceFoundException;
 
@@ -94,8 +96,20 @@ public class GlobalExceptionHandler {
         if (ex instanceof ValidationException) {
             return validationException((ValidationException) ex);
         }
+        if (ex instanceof HttpMessageNotReadableException) {
+            return methodArgumentTypeInvalidFormatExceptionHandler((HttpMessageNotReadableException) ex);
+        }
         if (ex instanceof MaxUploadSizeExceededException) {
             return maxUploadSizeExceededExceptionHandler((MaxUploadSizeExceededException) ex);
+        }
+        if (ex instanceof MultipartException) {
+            return multipartExceptionHandler((MultipartException) ex);
+        }
+        if (ex instanceof IllegalArgumentException) {
+            return illegalArgumentExceptionHandler((IllegalArgumentException) ex);
+        }
+        if (ex instanceof ClassNotFoundException) {
+            return classNotFoundExceptionHandler((ClassNotFoundException) ex);
         }
         if (ex instanceof NoHandlerFoundException) {
             return noHandlerFoundExceptionHandler((NoHandlerFoundException) ex);
@@ -189,10 +203,13 @@ public class GlobalExceptionHandler {
             InvalidFormatException invalidFormatException = (InvalidFormatException) ex.getCause();
             return CommonResult.error(BAD_REQUEST.getCode(), String.format("请求参数类型错误:%s", invalidFormatException.getValue()));
         }
+        if (ex.getCause() instanceof JsonProcessingException) {
+            return CommonResult.error(BAD_REQUEST.getCode(), String.format("请求参数类型错误:%s", ex.getMostSpecificCause().getMessage()));
+        }
         if (StrUtil.startWith(ex.getMessage(), "Required request body is missing")) {
             return CommonResult.error(BAD_REQUEST.getCode(), "请求参数类型错误: request body 缺失");
         }
-        return defaultExceptionHandler(ServletUtils.getRequest(), ex);
+        return CommonResult.error(BAD_REQUEST.getCode(), String.format("请求参数类型错误:%s", ex.getMostSpecificCause().getMessage()));
     }
 
     /**
@@ -221,6 +238,24 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(MaxUploadSizeExceededException.class)
     public CommonResult<?> maxUploadSizeExceededExceptionHandler(MaxUploadSizeExceededException ex) {
         return CommonResult.error(BAD_REQUEST.getCode(), "上传文件过大，请调整后重试");
+    }
+
+    @ExceptionHandler(MultipartException.class)
+    public CommonResult<?> multipartExceptionHandler(MultipartException ex) {
+        log.warn("[multipartExceptionHandler]", ex);
+        return CommonResult.error(BAD_REQUEST.getCode(), String.format("请求参数类型错误:%s", ex.getMessage()));
+    }
+
+    @ExceptionHandler(IllegalArgumentException.class)
+    public CommonResult<?> illegalArgumentExceptionHandler(IllegalArgumentException ex) {
+        log.warn("[illegalArgumentExceptionHandler]", ex);
+        return CommonResult.error(BAD_REQUEST.getCode(), String.format("请求参数不正确:%s", ex.getMessage()));
+    }
+
+    @ExceptionHandler(ClassNotFoundException.class)
+    public CommonResult<?> classNotFoundExceptionHandler(ClassNotFoundException ex) {
+        log.warn("[classNotFoundExceptionHandler]", ex);
+        return CommonResult.error(BAD_REQUEST.getCode(), String.format("请求参数不正确:%s", ex.getMessage()));
     }
 
     /**

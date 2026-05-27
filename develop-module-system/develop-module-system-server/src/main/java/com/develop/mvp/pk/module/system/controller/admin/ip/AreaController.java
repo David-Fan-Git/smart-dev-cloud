@@ -53,7 +53,12 @@ public class AreaController {
     @Parameter(name = "ip", description = "IP", required = true)
     public CommonResult<String> getAreaByIp(@RequestParam("ip") String ip) {
         // 获得城市
-        Area area = IPUtils.getArea(ip);
+        Area area;
+        try {
+            area = IPUtils.getArea(ip);
+        } catch (Exception ex) {
+            return success("未知");
+        }
         if (area == null) {
             return success("未知");
         }

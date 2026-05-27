@@ -223,9 +223,7 @@ public class OAuth2OpenController {
                                               @RequestParam("redirect_uri") String redirectUri,
                                               @RequestParam(value = "auto_approve") Boolean autoApprove,
                                               @RequestParam(value = "state", required = false) String state) {
-        @SuppressWarnings("unchecked")
-        Map<String, Boolean> scopes = JsonUtils.parseObject(scope, Map.class);
-        scopes = ObjectUtil.defaultIfNull(scopes, Collections.emptyMap());
+        Map<String, Boolean> scopes = parseScopes(scope);
         // 0. 校验用户已经登录。通过 Spring Security 实现
 
         // 1.1 校验 responseType 是否满足 code 或者 token 值
@@ -255,6 +253,21 @@ public class OAuth2OpenController {
         }
         // 3.2 如果是 token 则是 implicit 简化模式，则发送 accessToken 访问令牌，并重定向
         return success(getImplicitGrantRedirect(getLoginUserId(), client, approveScopes, redirectUri, state));
+    }
+
+    /**
+     * 查询 parse Scopes 对应的数据。
+     *
+     * @param scope scope 参数
+     * @return 处理结果
+     */
+    @SuppressWarnings("unchecked")
+    private static Map<String, Boolean> parseScopes(String scope) {
+        try {
+            return ObjectUtil.defaultIfNull(JsonUtils.parseObject(scope, Map.class), Collections.emptyMap());
+        } catch (RuntimeException ex) {
+            throw exception0(BAD_REQUEST.getCode(), "scope 参数格式错误");
+        }
     }
 
     /**
